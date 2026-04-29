@@ -29,7 +29,8 @@ const specsTable = document.getElementById('specsTable');
 const addSpecBtn = document.getElementById('addSpecBtn');
 
 // Image upload handling
-const imageUpload = document.getElementById('imageUpload');
+const imageUploadTrigger = document.getElementById('imageUploadTrigger');
+const imageFileInput = document.getElementById('imageFileInput');
 const imagePreview = document.getElementById('imagePreview');
 let uploadedImages = [];
 
@@ -75,21 +76,33 @@ function getSpecifications() {
     return specs;
 }
 
-// Image upload handler
-if (imageUpload) {
-    imageUpload.addEventListener('change', (e) => {
-        const files = Array.from(e.target.files);
-        files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                uploadedImages.push(event.target.result);
-                displayImagePreview(event.target.result);
-            };
-            reader.readAsDataURL(file);
-        });
+// Image upload trigger
+if (imageUploadTrigger) {
+    imageUploadTrigger.addEventListener('click', () => {
+        imageFileInput.click();
     });
 }
 
+// Handle file selection
+if (imageFileInput) {
+    imageFileInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+        files.forEach(file => {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedImages.push(event.target.result);
+                    displayImagePreview(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        // Clear input so same file can be uploaded again
+        imageFileInput.value = '';
+    });
+}
+
+// Display image preview
 function displayImagePreview(imgSrc) {
     const div = document.createElement('div');
     div.className = 'aspect-square bg-surface-container rounded-xl relative group overflow-hidden';
@@ -150,7 +163,7 @@ async function saveProduct() {
         category: category.value,
         brand: brand?.value.trim() || '',
         stock: parseInt(stock?.value) || 0,
-        sku: sku?.value.trim() || '',
+        sku: sku?.value.trim() || undefined,
         specifications: getSpecifications(),
         images: uploadedImages,
         isActive: true
@@ -173,12 +186,16 @@ async function saveProduct() {
         if (result.success) {
             showMessage('✅ Product created successfully!', false);
             // Reset form
-            if (productForm) productForm.reset();
+            productForm.reset();
             uploadedImages = [];
             if (imagePreview) imagePreview.innerHTML = '';
-            specsTable.innerHTML = '<tr class="header-row border-b border-outline-variant/15"><th class="pb-3 text-left text-xs font-bold uppercase">Specification Name</th><th class="pb-3 text-left text-xs font-bold uppercase">Value</th><th class="pb-3 w-10"></th></tr>';
+            // Reset specs table
+            specsTable.innerHTML = '';
+            addSpecRow('Material', '');
+            addSpecRow('Weight', '');
+            addSpecRow('Connectivity', '');
         } else {
-            showMessage('❌ Error: ' + result.message);
+            showMessage('❌ Error: ' + (result.message || 'Failed to create product'));
         }
     } catch (error) {
         console.error('Error saving product:', error);
@@ -191,7 +208,7 @@ if (submitBtn) {
     submitBtn.addEventListener('click', saveProduct);
 }
 
-// Add some initial spec rows
-addSpecRow('Processor', '');
-addSpecRow('RAM', '');
-addSpecRow('Storage', '');
+// Add initial spec rows
+addSpecRow('Material', '');
+addSpecRow('Weight', '');
+addSpecRow('Connectivity', '');

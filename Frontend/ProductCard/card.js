@@ -55,31 +55,31 @@ let allProducts = [];
 // Load products from API
 async function loadProducts() {
     if (loadingIndicator) loadingIndicator.classList.remove('hidden');
-    
+
     let url = API_URL;
     if (selectedCategory) {
         const encodedCategory = encodeURIComponent(selectedCategory);
         url = `${API_URL}?category=${encodedCategory}`;
     }
     console.log('Fetching products from:', url);
-    
+
     try {
         const response = await fetch(url, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
-        
+
         const result = await response.json();
         console.log('API Response:', result);
-        
+
         if (result.success && result.data && result.data.length > 0) {
             // Store all products for filtering
             allProducts = [...result.data];
             if (selectedCategory) {
                 allProducts = result.data.filter(product => product.category === selectedCategory);
             }
-            
+
             console.log('Total products loaded:', allProducts.length);
-            
+
             // Check if there's a search query from URL (Home page search)
             if (searchQuery && searchInput) {
                 console.log('Search query detected from URL:', searchQuery);
@@ -110,26 +110,26 @@ function performSearch() {
         console.log('No products to search');
         return;
     }
-    
+
     const searchTerm = searchInput?.value?.toLowerCase().trim() || '';
     console.log('Searching for:', searchTerm);
-    
+
     let filtered = [...allProducts];
-    
+
     if (searchTerm !== '') {
         filtered = filtered.filter(product => {
             const productName = (product.name || '').toLowerCase();
             const productDescription = (product.description || '').toLowerCase();
             const productCategory = (product.category || '').toLowerCase();
             const productBrand = (product.brand || '').toLowerCase();
-            
-            return productName.includes(searchTerm) || 
-                   productDescription.includes(searchTerm) || 
-                   productCategory.includes(searchTerm) ||
-                   productBrand.includes(searchTerm);
+
+            return productName.includes(searchTerm) ||
+                productDescription.includes(searchTerm) ||
+                productCategory.includes(searchTerm) ||
+                productBrand.includes(searchTerm);
         });
         console.log(`Search found ${filtered.length} products for "${searchTerm}"`);
-        
+
         // Update results count text
         const resultsText = document.querySelector('#resultsCount');
         if (resultsText) {
@@ -146,7 +146,7 @@ function performSearch() {
             }
         }
     }
-    
+
     // Apply price filter after search
     applyPriceFilterToResults(filtered);
 }
@@ -155,14 +155,14 @@ function performSearch() {
 function applyPriceFilterToResults(products) {
     const minPrice = parseInt(minPriceInput?.value) || 0;
     const maxPrice = parseInt(maxPriceInput?.value) || 5000;
-    
+
     const filtered = products.filter(product => {
         const productPrice = product.price || 0;
         return productPrice >= minPrice && productPrice <= maxPrice;
     });
-    
+
     console.log(`After price filter: ${filtered.length} products`);
-    
+
     if (filtered.length === 0) {
         const searchTerm = searchInput?.value?.toLowerCase().trim() || '';
         showNoFilterResults(searchTerm, minPrice, maxPrice);
@@ -174,38 +174,38 @@ function applyPriceFilterToResults(products) {
 // Apply both filters (called by price filter button)
 function applyFilters() {
     if (!allProducts.length) return;
-    
+
     const searchTerm = searchInput?.value?.toLowerCase().trim() || '';
     let filtered = [...allProducts];
-    
+
     if (searchTerm !== '') {
         filtered = filtered.filter(product => {
             const productName = (product.name || '').toLowerCase();
             const productDescription = (product.description || '').toLowerCase();
             const productCategory = (product.category || '').toLowerCase();
             const productBrand = (product.brand || '').toLowerCase();
-            
-            return productName.includes(searchTerm) || 
-                   productDescription.includes(searchTerm) || 
-                   productCategory.includes(searchTerm) ||
-                   productBrand.includes(searchTerm);
+
+            return productName.includes(searchTerm) ||
+                productDescription.includes(searchTerm) ||
+                productCategory.includes(searchTerm) ||
+                productBrand.includes(searchTerm);
         });
     }
-    
+
     applyPriceFilterToResults(filtered);
 }
 
 // Display products in grid
 function displayProducts(products) {
     if (!productsContainer) return;
-    
+
     console.log('Displaying', products.length, 'products');
-    
+
     if (products.length === 0) {
         showNoProducts(selectedCategory);
         return;
     }
-    
+
     productsContainer.innerHTML = products.map(product => `
         <div class="bg-surface-container-lowest rounded-xl overflow-hidden flex flex-col md:flex-row shadow-[0px_12px_32px_rgba(19,25,33,0.06)] group transition-all duration-300" data-product-id="${product._id}">
             <div class="md:w-72 h-64 md:h-auto overflow-hidden bg-surface-container-low p-6 flex items-center justify-center">
@@ -233,8 +233,8 @@ function displayProducts(products) {
                 <div class="flex items-center justify-between pt-6 border-t border-surface-container">
                     <div class="flex flex-col">
                         <span class="text-xs text-slate-500 font-medium">Price</span>
-                        <span class="text-2xl font-black text-on-surface">$${(product.price || 0).toFixed(2)}</span>
-                        ${product.originalPrice ? `<span class="text-xs text-slate-400 line-through">$${product.originalPrice.toFixed(2)}</span>` : ''}
+                        <span class="text-2xl font-black text-on-surface">₹${(product.price || 0).toFixed(2)}</span>
+                        ${product.originalPrice ? `<span class="text-xs text-slate-400 line-through">₹${product.originalPrice.toFixed(2)}</span>` : ''}
                     </div>
                     <button onclick="addToCart('${product._id}')" class="bg-primary-container hover:bg-amber-400 text-on-primary-fixed px-8 py-3 rounded-xl font-headline font-bold text-sm transition-all active:scale-95 shadow-sm">
                         Add to Cart
@@ -253,7 +253,7 @@ function displaySpecifications(specs, category) {
             <div><p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Stock</p><p class="text-sm font-semibold text-on-secondary-fixed">In Stock</p></div>
         `;
     }
-    
+
     const entries = Object.entries(specs).slice(0, 4);
     return entries.map(([key, value]) => `
         <div>
@@ -291,8 +291,8 @@ function showNoFilterResults(searchTerm, minPrice, maxPrice) {
         const categoryText = selectedCategory ? ` in "${selectedCategory}"` : '';
         let message = `No products found${categoryText}`;
         if (searchTerm) message += ` matching "${escapeHtml(searchTerm)}"`;
-        message += ` between $${minPrice} and $${maxPrice}`;
-        
+        message += ` between ₹${minPrice} and ₹${maxPrice}`;
+
         productsContainer.innerHTML = `
             <div class="text-center py-12 col-span-full">
                 <span class="material-symbols-outlined text-6xl text-gray-400">search_off</span>
@@ -304,13 +304,13 @@ function showNoFilterResults(searchTerm, minPrice, maxPrice) {
 }
 
 // Reset all filters
-window.resetAllFilters = function() {
+window.resetAllFilters = function () {
     if (searchInput) searchInput.value = '';
     if (minPriceInput) minPriceInput.value = 0;
     if (maxPriceInput) maxPriceInput.value = 5000;
-    
+
     displayProducts(allProducts);
-    
+
     const resultsText = document.querySelector('#resultsCount');
     if (resultsText) {
         if (selectedCategory) {
@@ -327,7 +327,7 @@ function showToast(message, type = 'success') {
     toast.className = `fixed bottom-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg ${type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`;
     toast.textContent = message;
     document.body.appendChild(toast);
-    
+
     setTimeout(() => {
         toast.remove();
     }, 3000);
@@ -355,14 +355,14 @@ async function updateCartCountBadge() {
 }
 
 // Add to Cart function - GLOBAL
-window.addToCart = async function(productId) {
+window.addToCart = async function (productId) {
     console.log('Add to Cart clicked:', productId);
-    
+
     if (!token) {
         window.location.href = '../Login Page/login.html';
         return;
     }
-    
+
     try {
         const response = await fetch(`${CART_API_URL}/add`, {
             method: 'POST',
@@ -372,11 +372,11 @@ window.addToCart = async function(productId) {
             },
             body: JSON.stringify({ productId, quantity: 1 })
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
-            showToast('✅ Product added to cart!', 'success');
+            showToast(' Product added to cart!', 'success');
             await updateCartCountBadge();
         } else {
             showToast('❌ ' + (result.message || 'Failed to add to cart'), 'error');
@@ -389,14 +389,14 @@ window.addToCart = async function(productId) {
 
 // Search event listeners
 if (searchBtn) {
-    searchBtn.addEventListener('click', function() {
+    searchBtn.addEventListener('click', function () {
         console.log('Search button clicked');
         performSearch();
     });
 }
 
 if (searchInput) {
-    searchInput.addEventListener('keypress', function(e) {
+    searchInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             console.log('Enter key pressed in search');
             performSearch();
@@ -406,7 +406,7 @@ if (searchInput) {
 
 // Apply price filter event listener
 if (applyPriceFilterBtn) {
-    applyPriceFilterBtn.addEventListener('click', function() {
+    applyPriceFilterBtn.addEventListener('click', function () {
         console.log('Apply filter clicked');
         applyFilters();
     });

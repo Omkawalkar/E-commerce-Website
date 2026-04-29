@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const productRoutes = require('./routes/products');
 const cartRoutes = require('./routes/cart');
-
 const orderRoutes = require('./routes/orders');
 
 // Load environment variables from root directory
@@ -20,18 +19,18 @@ connectDB();
 
 const app = express();
 
-// Body parser middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Increase payload limit for image uploads (50mb limit)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Cookie parser middleware
 app.use(cookieParser());
 
 // CORS middleware
 app.use(cors({
-    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+    origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://localhost:5501', 'http://127.0.0.1:5501'],
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
@@ -43,6 +42,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+
 // Basic test route
 app.get('/api/test', (req, res) => {
     res.json({ message: 'Backend server is running!' });
@@ -60,4 +60,3 @@ process.on('unhandledRejection', (err, promise) => {
     console.log(`❌ Error: ${err.message}`);
     server.close(() => process.exit(1));
 });
-
