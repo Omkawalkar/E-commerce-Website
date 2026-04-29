@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TechEngine | High-End Electronics Marketplace</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700;900&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="card.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#514538",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#dde3ee",
+                        "on-tertiary-fixed": "#001f27",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed": "#161c24",
+                        "surface-bright": "#f9f9f9",
+                        "surface-variant": "#e2e2e2",
+                        "primary-fixed-dim": "#fbba67",
+                        "secondary-fixed-dim": "#c1c7d2",
+                        "on-background": "#1a1c1c",
+                        "surface-container-low": "#f3f3f3",
+                        "primary-container": "#febd69",
+                        "on-tertiary-container": "#005c6f",
+                        "tertiary-fixed": "#b2ebff",
+                        "on-surface": "#1a1c1c",
+                        "inverse-primary": "#fbba67",
+                        "error": "#ba1a1a",
+                        "tertiary": "#00677d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#595f68",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#7dd5f0",
+                        "inverse-surface": "#2f3131",
+                        "background": "#f9f9f9",
+                        "tertiary-fixed-dim": "#7ad3ed",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#d5c4b2",
+                        "on-primary-fixed-variant": "#653e00",
+                        "secondary-container": "#dae0eb",
+                        "primary": "#845403",
+                        "surface-dim": "#dadada",
+                        "on-secondary-fixed-variant": "#414750",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-primary-fixed": "#2a1700",
+                        "primary-fixed": "#ffddb7",
+                        "outline": "#837566",
+                        "on-secondary-container": "#5d636d",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface": "#f9f9f9",
+                        "on-primary-container": "#774b00",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#845403",
+                        "surface-container": "#eeeeee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Public Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-surface-container-low text-on-surface">
+    <header class="bg-[#131921]/70 backdrop-blur-md sticky top-0 z-50 shadow-lg">
+        <div class="flex items-center justify-between px-6 py-3 w-full gap-8">
+            <div class="flex items-center gap-8 flex-1">
+                <a href="../Home page/home.html"
+                    class="text-2xl font-black text-[#febd69] tracking-tighter whitespace-nowrap">MarketEngine</a>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-2xl relative">
+                    <input id="searchInput"
+                        class="w-full bg-white/90 border-none rounded-lg py-2 px-4 focus:ring-2 focus:ring-[#febd69] focus:outline-none transition-all text-gray-900 placeholder-gray-500"
+                        placeholder="Search products..." type="text" />
+                    <button id="searchBtn"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-[#febd69] p-1.5 rounded-md hover:bg-[#fcae4b] transition-colors">
+                        <span class="material-symbols-outlined text-gray-800 text-xl">search</span>
+                    </button>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6">
+
+                <div class="flex items-center gap-6 border-l border-white/10 pl-6">
+                    <!-- Account Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 hover:text-[#febd69] transition-colors cursor-pointer">
+                            <span class="material-symbols-outlined text-white text-2xl">account_circle</span>
+                            <span class="text-sm font-medium text-white hidden lg:inline">Account</span>
+                            <span
+                                class="material-symbols-outlined text-white text-sm hidden lg:inline">expand_more</span>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div
+                            class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg hidden group-hover:block z-50">
+                            <div class="py-2">
+                                <div class="px-4 py-3 border-b border-gray-100">
+                                    <p class="text-sm font-semibold text-gray-900" id="userNameDisplay">Loading...</p>
+                                    <p class="text-xs text-gray-500" id="userEmailDisplay"></p>
+                                </div>
+                                <a href="../OrderPage/order.html"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span
+                                        class="material-symbols-outlined text-sm align-middle mr-2">shopping_bag</span>
+                                    My Orders
+                                </a>
+                                <a href="../AddCartPage/AddCart.html"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span
+                                        class="material-symbols-outlined text-sm align-middle mr-2">shopping_cart</span>
+                                    My Cart
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">favorite</span>
+                                    Wishlist
+                                </a>
+                                <div class="border-t border-gray-100 my-1"></div>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">settings</span>
+                                    Account Settings
+                                </a>
+                                <a href="#" onclick="logout()"
+                                    class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">logout</span>
+                                    Sign Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Icon -->
+                    <a href="../AddCartPage/AddCart.html"
+                        class="relative cursor-pointer text-[#febd69] hover:opacity-80 transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-3xl">shopping_cart</span>
+                        <span id="cartCount"
+                            class="absolute -top-1 -right-1 bg-white text-slate-900 text-[10px] font-bold px-1.5 rounded-full hidden">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="flex max-w-[1440px] mx-auto pt-16 min-h-screen">
+        <aside
+            class="w-64 fixed left-0 top-16 h-[calc(100vh-4rem)] bg-slate-50 border-r border-slate-200 flex flex-col py-6 overflow-y-auto hidden lg:flex">
+            <div class="px-6 mb-8">
+                <h2 class="font-headline font-bold text-lg text-on-secondary-fixed">Component Finder</h2>
+                <p class="text-xs text-slate-500 font-medium uppercase tracking-widest mt-1">Filtered Results</p>
+            </div>
+            <div class="px-6 space-y-8">
+                <div>
+                    <h3 class="text-sm font-bold text-on-secondary-fixed mb-4">Price Range</h3>
+                    <div class="flex items-center gap-2 mb-2">
+                        <input id="minPrice" type="number" placeholder="Min"
+                            class="w-full bg-surface-container border rounded-lg px-3 py-2 text-sm" value="0"
+                            step="100">
+                        <span class="text-slate-500">-</span>
+                        <input id="maxPriceInput" type="number" placeholder="Max"
+                            class="w-full bg-surface-container border rounded-lg px-3 py-2 text-sm" value="5000"
+                            step="100">
+                    </div>
+                    <button id="applyPriceFilter"
+                        class="w-full bg-primary-container text-on-primary-fixed py-2 rounded-lg text-sm font-bold hover:bg-amber-400 transition-colors mt-2">
+                        Apply Filter
+                    </button>
+                    <div class="flex justify-between mt-3 text-xs text-slate-500 font-medium">
+                        <span>$0</span>
+                        <span>$5000+</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 lg:ml-64 p-8">
+            <div class="flex justify-between items-baseline mb-8">
+                <h1 class="font-headline text-3xl font-black text-on-surface tracking-tight">Professional Computing
+                    Systems</h1>
+                <p id="resultsCount" class="text-sm text-on-surface-variant font-medium">Loading products...</p>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="text-center py-12 hidden">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
+                <p class="mt-2 text-on-surface-variant">Loading products...</p>
+            </div>
+
+            <!-- Products Container -->
+            <div id="productsContainer" class="space-y-6"></div>
+        </main>
+    </div>
+
+    <nav
+        class="fixed bottom-0 w-full z-50 md:hidden bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.05)] border-t border-slate-100">
+        <div class="flex justify-around items-center h-16 px-4">
+            <div
+                class="flex flex-col items-center justify-center bg-amber-400 text-slate-900 rounded-xl px-4 py-1.5 scale-95 duration-75">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+                <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold">Shop</span>
+            </div>
+            <div class="flex flex-col items-center justify-center text-slate-400">
+                <span class="material-symbols-outlined">search</span>
+                <span class="font-['Inter'] text-[10px] uppercase tracking-widest">Search</span>
+            </div>
+            <a href="../AddCartPage/AddCart.html" class="flex flex-col items-center justify-center text-slate-400">
+                <span class="material-symbols-outlined">shopping_basket</span>
+                <span class="font-['Inter'] text-[10px] uppercase tracking-widest">Cart</span>
+            </a>
+            <div class="flex flex-col items-center justify-center text-slate-400">
+                <span class="material-symbols-outlined">person</span>
+                <span class="font-['Inter'] text-[10px] uppercase tracking-widest">Profile</span>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Get user data from localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const userToken = localStorage.getItem('token');
+
+        // Update user name in dropdown
+        function updateUserDropdown() {
+            const userNameSpan = document.getElementById('userNameDisplay');
+            const userEmailSpan = document.getElementById('userEmailDisplay');
+
+            if (userNameSpan && user.fullName) {
+                userNameSpan.innerHTML = user.fullName;
+            } else if (userNameSpan) {
+                userNameSpan.innerHTML = 'Guest User';
+            }
+
+            if (userEmailSpan && user.email) {
+                userEmailSpan.innerHTML = user.email;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '../Login Page/login.html';
+            return false;
+        }
+
+        // Update user dropdown when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            updateUserDropdown();
+            if (!userToken) {
+                const userNameSpan = document.getElementById('userNameDisplay');
+                if (userNameSpan) {
+                    userNameSpan.innerHTML = 'Not Signed In';
+                }
+            }
+        });
+    </script>
+
+    <script src="card.js"></script>
+</body>
+
+</html>

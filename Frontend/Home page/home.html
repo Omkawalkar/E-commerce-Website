@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MarketEngine | Premium Marketplace</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="home.css">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5d636d",
+                        "on-tertiary-container": "#005c6f",
+                        "surface-bright": "#f9f9f9",
+                        "background": "#f9f9f9",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed-dim": "#7ad3ed",
+                        "on-primary-fixed": "#2a1700",
+                        "surface-container-low": "#f3f3f3",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#161c24",
+                        "tertiary-fixed": "#b2ebff",
+                        "on-surface": "#1a1c1c",
+                        "on-secondary-fixed-variant": "#414750",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "inverse-primary": "#fbba67",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#d5c4b2",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "secondary": "#595f68",
+                        "surface-dim": "#dadada",
+                        "primary-fixed": "#ffddb7",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "on-surface-variant": "#514538",
+                        "surface-variant": "#e2e2e2",
+                        "primary-container": "#febd69",
+                        "on-background": "#1a1c1c",
+                        "tertiary": "#00677d",
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#001f27",
+                        "inverse-surface": "#2f3131",
+                        "tertiary-container": "#7dd5f0",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#fbba67",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#845403",
+                        "on-primary-container": "#774b00",
+                        "primary": "#845403",
+                        "secondary-container": "#dae0eb",
+                        "secondary-fixed": "#dde3ee",
+                        "secondary-fixed-dim": "#c1c7d2",
+                        "outline": "#837566"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Public Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-surface-container-low text-on-surface">
+    <header class="bg-[#131921]/70 backdrop-blur-md sticky top-0 z-50 shadow-lg">
+        <div class="flex items-center justify-between px-6 py-3 w-full gap-8">
+            <div class="flex items-center gap-8 flex-1">
+                <a href="../Home page/home.html"
+                    class="text-2xl font-black text-[#febd69] tracking-tighter whitespace-nowrap">MarketEngine</a>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-2xl relative">
+                    <input id="searchInput"
+                        class="w-full bg-white/90 border-none rounded-lg py-2 px-4 focus:ring-2 focus:ring-[#febd69] focus:outline-none transition-all text-gray-900 placeholder-gray-500"
+                        placeholder="Search products..." type="text" />
+                    <button id="searchBtn"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-[#febd69] p-1.5 rounded-md hover:bg-[#fcae4b] transition-colors">
+                        <span class="material-symbols-outlined text-gray-800 text-xl">search</span>
+                    </button>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6">
+
+                <div class="flex items-center gap-6 border-l border-white/10 pl-6">
+                    <!-- Account Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 hover:text-[#febd69] transition-colors cursor-pointer">
+                            <span class="material-symbols-outlined text-white text-2xl">account_circle</span>
+                            <span class="text-sm font-medium text-white hidden lg:inline">Account</span>
+                            <span
+                                class="material-symbols-outlined text-white text-sm hidden lg:inline">expand_more</span>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div
+                            class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg hidden group-hover:block z-50">
+                            <div class="py-2">
+                                <div class="px-4 py-3 border-b border-gray-100">
+                                    <p class="text-sm font-semibold text-gray-900" id="userNameDisplay">Loading...</p>
+                                    <p class="text-xs text-gray-500" id="userEmailDisplay"></p>
+                                </div>
+                                <a href="../OrderPage/order.html"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span
+                                        class="material-symbols-outlined text-sm align-middle mr-2">shopping_bag</span>
+                                    My Orders
+                                </a>
+                                <a href="../AddCartPage/AddCart.html"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span
+                                        class="material-symbols-outlined text-sm align-middle mr-2">shopping_cart</span>
+                                    My Cart
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">favorite</span>
+                                    Wishlist
+                                </a>
+                                <div class="border-t border-gray-100 my-1"></div>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">settings</span>
+                                    Account Settings
+                                </a>
+                                <a href="#" onclick="logout()"
+                                    class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">logout</span>
+                                    Sign Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Icon -->
+                    <a href="../AddCartPage/AddCart.html"
+                        class="relative cursor-pointer text-[#febd69] hover:opacity-80 transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-3xl">shopping_cart</span>
+                        <span id="cartCount"
+                            class="absolute -top-1 -right-1 bg-white text-slate-900 text-[10px] font-bold px-1.5 rounded-full hidden">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        // Get user data from localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = localStorage.getItem('token');
+
+        // Update user name in dropdown
+        function updateUserDropdown() {
+            const userNameSpan = document.getElementById('userNameDisplay');
+            const userEmailSpan = document.getElementById('userEmailDisplay');
+
+            if (userNameSpan && user.fullName) {
+                userNameSpan.innerHTML = user.fullName;
+            } else if (userNameSpan) {
+                userNameSpan.innerHTML = 'Guest User';
+            }
+
+            if (userEmailSpan && user.email) {
+                userEmailSpan.innerHTML = user.email;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '../Login Page/login.html';
+            return false;
+        }
+
+        // Update user dropdown when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            updateUserDropdown();
+
+            // If no token, redirect to login
+            if (!token) {
+                // Don't redirect, just show guest
+                const userNameSpan = document.getElementById('userNameDisplay');
+                if (userNameSpan) {
+                    userNameSpan.innerHTML = 'Not Signed In';
+                }
+            }
+        });
+
+        // Search functionality
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput ? searchInput.value.trim() : '';
+            if (searchTerm) {
+                window.location.href = `../ProductCard/card.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInput = document.getElementById('searchInput');
+        if (searchBtn) searchBtn.addEventListener('click', performSearch);
+        if (searchInput) searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+    </script>
+
+    <main>
+        <section class="relative h-[600px] overflow-hidden">
+            <div class="absolute inset-0">
+                <img alt="expansive luxury shopping mall interior" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuACp80kZWFt6E0uXyM4TfNN9Q87DArW5skGH04PbHj2HmMLO-lggZuA2uIVSPtDhHdMFO2bL2jPyITfVL_wNQTEGSrLn-TjziKSoNNe65-Ms1F-rj8_WhS1M8dnRaDrGa3mPvdLt1KMTZdYtOmPSzgbmdgvXOX3TxldwSncT31TlJRBrb_2NGo8nFfXR8XVzyvB4ufOkSBUSwmpSYeuqDc6aQBMIBDqTJG5Y3vwMMw5Hp8RdtxD7Y58xKcq_BtAqtJoT5HJbr0xOjzb" />
+                <div
+                    class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface-container-low">
+                </div>
+            </div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 pt-32 h-full flex flex-col justify-start">
+                <div class="max-w-xl">
+                    <h1 class="text-5xl font-extrabold text-on-surface tracking-tight mb-4 leading-tight">
+                        Elevate Your <span class="text-primary-fixed-dim">Everyday Experience.</span>
+                    </h1>
+                    <p class="text-lg text-on-surface-variant mb-8 font-medium">
+                        Discover the new collection of high-density tech and curated home essentials.
+                    </p>
+                    <button
+                        class="bg-primary-container text-on-primary-fixed px-8 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-2 group">
+                        Shop Exclusive Deals
+                        <span
+                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 -mt-40 relative z-20 pb-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div
+                    class="md:col-span-2 md:row-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-sm flex flex-col justify-between group cursor-pointer border border-transparent hover:border-primary-container/30 transition-all">
+                    <div>
+                        <span
+                            class="inline-block bg-secondary-container text-on-secondary-fixed-variant px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">New
+                            Arrival</span>
+                        <h2 class="text-3xl font-bold mb-2">The Ultra-Pro Tech Ecosystem</h2>
+                        <p class="text-on-surface-variant mb-6">Experience productivity like never before with our
+                            flagship hardware suite.</p>
+                    </div>
+                    <div class="aspect-video bg-surface-container-low rounded-xl overflow-hidden mb-6">
+                        <img alt="minimalist home office setup"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxgan-FSISQ7IM7DuNecrClQ7k37Qvki1JwAT7JqLYpAg8fg_32AdiYfaOjsjoNyZrHzn59Rza5YZSfrft28ttF_4AQG6fLw6QUXsW3moFIg_mq-Nfw-JKqzGUKcWhGfngKUbYd_w1M9B6wxtYipviSzx8f2EThAwmJNcQM6EVzMINn8FiNi1x3oXUb8FZfv3FAQNCnIL-Z2D5YQrN3WopIQ7B7i61zhbnjTAcYMTJQA1iZp9CKMfyJSJm4BasPgjsrySYgb-4WK8V" />
+                    </div>
+                    <a class="text-primary font-bold inline-flex items-center gap-1 hover:underline" href="#">Explore
+                        Electronics <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+                </div>
+                <div
+                    class="bg-surface-container-lowest p-6 rounded-xl shadow-sm flex flex-col border border-transparent hover:border-primary-container/30 transition-all">
+                    <h3 class="text-lg font-bold mb-4">Today's Deals</h3>
+                    <div class="flex-1 bg-surface-container-low rounded-lg overflow-hidden mb-4 relative aspect-square">
+                        <img alt="premium noise-cancelling headphones" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7UcbUWOQwuOVX9foPmiVEJ7c-ufZP_5uN_EvF6z5nxP-mnBTtjkuwiemp963yIY-vU4YneeY9iX0ee81IqvDX4C3dcUls7OqtM3iQAtgsji6vE_AksAu3RmnZQJpZf_XjzZDUr6P6FxCuEKmbSsNdACoAlzytQypDlyEBI9t0ZBArlKDN-L57xrjE7iRTlQlnWbE5REb_t4rM4G7XMxzG9cBqQ8a60orkPNVJYQ3TGiutLc0qf996r-54jOKRluaQuvGMWDhCLR2B" />
+                        <div class="absolute top-2 left-2 bg-error text-white text-[10px] font-bold px-2 py-1 rounded">
+                            25% OFF</div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium line-clamp-2 mb-1">Wireless Pro Noise-Cancelling Headphones</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl font-bold text-on-surface">$199.00</span>
+                            <span class="text-xs text-on-surface-variant line-through">$249.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="bg-surface-container-lowest p-6 rounded-xl shadow-sm flex flex-col border border-transparent hover:border-primary-container/30 transition-all">
+                    <h3 class="text-lg font-bold mb-4">Keep Shopping</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="aspect-square bg-surface-container-low rounded-lg overflow-hidden">
+                            <img alt="luxury scented candle" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN-dvfJBgPP0d1MnOM0jGuLEZ_EQJ6BJJP8qVNhC7rA_gv3kNu8Iurp4iRaD_SLk1lHXkEAMfXGDwvOPcI1zlHXFkHrpRjzQFkZ3ZBhsyl1YdwJs3v7cJHez5PFPOtbsPO5nbhQV8mPuiVjNIi1oKz9faYIXuPRp7JnlclEvHvmno0EBJMzZ2WoyfTj-LLnyw3n1s19dP-dP2nwaLKNfAYaIlyq-aSiPg0a4QXE7NCgda0NfdR7YEq1Ev1eSoUPTjae61X_ds3sp07" />
+                        </div>
+                        <div class="aspect-square bg-surface-container-low rounded-lg overflow-hidden">
+                            <img alt="digital watch" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEGUuDkY7ev-P-KgRxu_COwUPLRZQ2Gij1FLHFXjGYeLiGLonvbLZgLX2mI-yfetCq0sQy_HLmG5L-pVudQ7zYCnt_Ntwl-22pD-oWWjlSQ304djg_alLibIyN6cZFU1XDea9Me_2pCxe1dcRXnAsTNfExJP-fdy5hUziaZs4NpOpoQ1KOeuyGc08601r92JE-DEFz8eniOs62hkDdNwQtfNUqI-KdOtfhuTPKPSdEmolXvCqVJEz8K2nRZe5vfkzlh0yywKPy0E3q" />
+                        </div>
+                        <div class="aspect-square bg-surface-container-low rounded-lg overflow-hidden">
+                            <img alt="designer sunglasses" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8UreiyWoU-e_C_gxA5UYAtQ3VnkrHU-NIUrYynPYJkZaxwg0BbOQeUrSAACCDZ0sM2N6f-7De87ODRuHKiTa5_lQycHWAtCPkG2w5zlh5EslvXuL63qyjUPOOvMBYkX_zicnjJ_JOw9hySXTxAeD55yasF1A69pvYfNm2U1Uu_-AExBaST_Ai5Zr0S5hB8BfiSWEbTD5sTsdM8gNJR9BtXlczgFYJSzZ9o_og4t_zQKn8MzxltbJcILPTlJGUzyRiZJyeU2y4ceqM" />
+                        </div>
+                        <div class="aspect-square bg-surface-container-low rounded-lg overflow-hidden">
+                            <img alt="coffee brewing gear" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmSHJTYk22Ni4uZT_93_16quEDTcrI53iaqhecCqV6mg9dcBlHqqhQKZ1xAQpqbt5LcI5GeaLLo339v1HG4DU2ePQkYpQL3CTpKBT7_if2GwgSMTg3GFk7Tu9VKGii2uq0rFuenMbi8bY_OMYxn0XXdQni7JFXAjpsysY2OS69CD7Hv2pPVb8enNPAYOpj9h1qLHmRngGEXg4XbgY7Fm0Ege8ObH-XUM9f1wSebzFn87GFfuvTnnL_cExPXquaDcKmpEHDM9KgfRNh" />
+                        </div>
+                    </div>
+                    <a class="mt-4 text-xs font-bold text-primary hover:underline" href="#">View History</a>
+                </div>
+                <div
+                    class="bg-surface-container-lowest p-6 rounded-xl shadow-sm flex flex-col md:col-start-3 border border-transparent hover:border-primary-container/30 transition-all">
+                    <h3 class="text-lg font-bold mb-4">Home & Kitchen</h3>
+                    <div class="aspect-video bg-surface-container-low rounded-lg overflow-hidden mb-4">
+                        <img alt="modern luxury kitchen" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYn3HZFDk46miqONFlJo-HvxQiL3CKW2vQtzhRoJMwjDC2UQpcI686WFTs8LN4FdrrG2tFKXEKif_t0J7XT_nizPbFb4XQBT9PCx2DUpcFLwSEBxiMeurjPXt5qK_Fpcy-Ejys_LDAEU1Sy0530bA0XW4Xp1vQdU3vI7dLduTvxqtGh0r3Xj6Jr09zffNrV_ro6Uovx-rDE4I19WQIpkouXptb9rQcZRD2UV762mZXIsfq_LKPNDalQ7wWVQXq8pPlLJylURHT7vpZ" />
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-surface-container px-3 py-1 rounded-full text-xs font-medium">Appliances</span>
+                        <span class="bg-surface-container px-3 py-1 rounded-full text-xs font-medium">Decor</span>
+                        <span class="bg-surface-container px-3 py-1 rounded-full text-xs font-medium">Cookware</span>
+                    </div>
+                </div>
+                <div
+                    class="bg-on-secondary-fixed text-white p-6 rounded-xl shadow-sm flex flex-col justify-between overflow-hidden relative group cursor-pointer">
+                    <div class="relative z-10">
+                        <h3 class="text-lg font-bold mb-2">Curated Fashion</h3>
+                        <p class="text-sm text-white/70 mb-4">Winter collection '24 just dropped.</p>
+                        <button
+                            class="bg-white text-on-secondary-fixed px-4 py-2 rounded font-bold text-xs uppercase tracking-tight hover:bg-[#febd69] transition-colors">Shop
+                            Now</button>
+                    </div>
+                    <div class="absolute -right-4 -bottom-4 opacity-40 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-8xl"
+                            style="font-variation-settings: 'FILL' 1;">checkroom</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 mb-20">
+            <h2 class="text-2xl font-bold tracking-tight mb-8">Shop by Category</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Electronics">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">devices</span>
+                    <span class="text-sm font-bold text-on-surface">Electronics</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Home%20%26%20Kitchen">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">flatware</span>
+                    <span class="text-sm font-bold text-on-surface">Home & Kitchen</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Fashion">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">apparel</span>
+                    <span class="text-sm font-bold text-on-surface">Fashion</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Books">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">menu_book</span>
+                    <span class="text-sm font-bold text-on-surface">Books</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Beauty">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">content_cut</span>
+                    <span class="text-sm font-bold text-on-surface">Beauty</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Sports">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">sports_tennis</span>
+                    <span class="text-sm font-bold text-on-surface">Sports</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Toys">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">smart_toy</span>
+                    <span class="text-sm font-bold text-on-surface">Toys</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Automotive">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">directions_car</span>
+                    <span class="text-sm font-bold text-on-surface">Automotive</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Groceries">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">shopping_basket</span>
+                    <span class="text-sm font-bold text-on-surface">Groceries</span>
+                </a>
+                <a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md hover:bg-primary-container/10 transition-all group border border-transparent hover:border-primary-container/20"
+                    href="../ProductCard/card.html?category=Health">
+                    <span
+                        class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:scale-110 transition-transform">medical_services</span>
+                    <span class="text-sm font-bold text-on-surface">Health</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 mb-20">
+            <div class="flex justify-between items-end mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold tracking-tight">Trending in Books</h2>
+                    <p class="text-on-surface-variant text-sm">Hand-picked by our editorial staff</p>
+                </div>
+                <a class="text-primary font-bold text-sm underline-offset-4 hover:underline" href="#">See all books</a>
+            </div>
+            <div class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide">
+                <div class="flex-none w-48 group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-low rounded-lg mb-3 shadow-md group-hover:shadow-xl transition-all duration-300">
+                        <img alt="book cover minimalism" class="w-full h-full object-cover rounded-lg"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_OKWQHutXUFrjup024yOPZEgQFl7WTk6frnOq8Q0Smu7EmCZtu5lofeR8FV7N3-35UW_OddX3ZaCydlSPAhrqQe55AVZs-Jgnrn56DpBGqz06fqe2DyUlJbgj82GdUgd-9CdjBC73Bz0JwKFNEnUrtn6TS4YJ_MbSefx-PAkN01FC6vxe2P9E49Pb8xI9Fun6WGWStUqrJnblsUbdZIpnl8UnmFk_yque6Gc51EruoGyfw8h3UP8Cpb3LMuQc657zwyAdbX-AFbls" />
+                    </div>
+                    <h4 class="font-bold text-sm line-clamp-1">The Art of Focus</h4>
+                    <p class="text-xs text-on-surface-variant">Benjamin Carter</p>
+                    <div class="flex text-primary-container mt-1">
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs">star_half</span>
+                    </div>
+                </div>
+                <div class="flex-none w-48 group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-low rounded-lg mb-3 shadow-md group-hover:shadow-xl transition-all duration-300">
+                        <img alt="leather-bound books" class="w-full h-full object-cover rounded-lg"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbcHMlyggIGyeKQaSpUfcVIgzpesVA237ksIWo0Is7ovE-pPD8r1b1B1ycwjX5W5Xux0E5lOZiJHW9ke5I545TXlKByO-JuKqBkBWCmXp7AD2Aou1IjF66FBBEK3YCwDB0xyuNknPNjmFVYkaEvhHlsSM5SP83xSsCIdHqUUhHWYG7LrqUOlQzLqUee6KJF-XowxvRWh7qq76fLOnkvbWY8d7XakrBPsU5OotRB52ojhu2aLPGjF-NOBWdss1XkOUIE4htw2w1-Avp" />
+                    </div>
+                    <h4 class="font-bold text-sm line-clamp-1">Classic Tales Revised</h4>
+                    <p class="text-xs text-on-surface-variant">L.M. Montgomery</p>
+                    <div class="flex text-primary-container mt-1">
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                </div>
+                <div class="flex-none w-48 group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-low rounded-lg mb-3 shadow-md group-hover:shadow-xl transition-all duration-300">
+                        <img alt="design systems book" class="w-full h-full object-cover rounded-lg"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj3sqCGMx2z0IyALIiAJd78xNK6Gw4YATNpFfhNY_FLKeLOzHIX1x68lsVHV3d8lFQH9oyGfCWVXdpLXXoSOaSIZ-ukzzkrxlR5GnWKMcOGJN2ClvRQhOBfCg9vUVfZA0YSBiH9__2Gy5FkjgD6KTDXkMJ63imqfwLPFcRWhQimZ_IMVPtFKNWeuISqlw7_folSiVFGRKJIlYorGeJUbA8RO251kYEx2cz5cLDAZ9C0A39G7vKw0brqv9T5Rk_DbJMvo0OoJmjEOTM" />
+                    </div>
+                    <h4 class="font-bold text-sm line-clamp-1">Design Systems 101</h4>
+                    <p class="text-xs text-on-surface-variant">Sarah Jenkins</p>
+                    <div class="flex text-primary-container mt-1">
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs">star_outline</span>
+                    </div>
+                </div>
+                <div class="flex-none w-48 group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-low rounded-lg mb-3 shadow-md group-hover:shadow-xl transition-all duration-300">
+                        <img alt="vibrant cookbook" class="w-full h-full object-cover rounded-lg"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6XEE6og3qdJj_2-9yDoxWqEnZr9u1bI6uGJ1ats2iv9SdsHbK-TVY65Rwnaq2A-koQgswZSpAg-btQu87Mk8QnczD5ifZTcUK213auSLaVJwn-Xz5wtEhvWMD7Zx5we-bhnAzAecHIT7FY_A6vrZoLPXNayxuHiw9rn6sqPiwM8wP-_ySHMds8_PYVI5rZW7geKQNMCp7Dj4tbAx0hKnr7loQUSy2tgfMF4bOR8yJ89-8ZEYzalQiG1qa5jbksf_zT1T79wRBK8am" />
+                    </div>
+                    <h4 class="font-bold text-sm line-clamp-1">The Modern Chef</h4>
+                    <p class="text-xs text-on-surface-variant">Marcus Thorne</p>
+                    <div class="flex text-primary-container mt-1">
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-xs"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#131921] dark:bg-black py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-col items-center gap-8 px-6">
+            <div class="text-lg font-bold text-white uppercase tracking-widest">MarketEngine</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 w-full text-center md:text-left">
+                <div class="flex flex-col gap-4">
+                    <h5 class="text-white font-bold text-sm">Get to Know Us</h5>
+                    <nav class="flex flex-col gap-2">
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Careers</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Blog</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">About Us</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Sustainability</a>
+                    </nav>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <h5 class="text-white font-bold text-sm">Make Money with Us</h5>
+                    <nav class="flex flex-col gap-2">
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Sell on Engine</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Affiliate
+                            Program</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Advertise Your
+                            Products</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Self-Publish with
+                            Us</a>
+                    </nav>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <h5 class="text-white font-bold text-sm">Engine Payment</h5>
+                    <nav class="flex flex-col gap-2">
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Business Card</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Shop with
+                            Points</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Reload Your
+                            Balance</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Currency
+                            Converter</a>
+                    </nav>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <h5 class="text-white font-bold text-sm">Let Us Help You</h5>
+                    <nav class="flex flex-col gap-2">
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Your Account</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Your Orders</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Shipping Rates</a>
+                        <a class="text-slate-400 text-xs hover:text-white transition-colors" href="#">Help Center</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 mt-8">
+                <a class="text-slate-400 text-xs hover:text-[#febd69] underline transition-colors" href="#">Conditions
+                    of Use</a>
+                <a class="text-slate-400 text-xs hover:text-[#febd69] underline transition-colors" href="#">Privacy
+                    Notice</a>
+                <a class="text-slate-400 text-xs hover:text-[#febd69] underline transition-colors" href="#">Your Ads
+                    Privacy Choices</a>
+                <a class="text-slate-400 text-xs hover:text-[#febd69] underline transition-colors" href="#">Help</a>
+            </div>
+            <p class="text-slate-500 text-[10px] text-center max-w-lg leading-relaxed">
+                © 2024 MarketEngine. High-density retail evolved. All rights reserved.
+                Our platform uses advanced discovery logic to connect you with the world's most premium goods.
+            </p>
+        </div>
+    </footer>
+
+    <script src="home.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+*.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Build output
+dist/
+build/
+.out/
+coverage/
+coverage-
+*.tgz
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE / editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temp and cache
+*.tmp
+*.temp
+*.cache
+.cache/
+*.tsbuildinfo
+*.parcel-cache/
+.pnp.*
+.cache-loader/
+
+# Backend / Node.js
+Backend/node_modules/
+Backend/.env
+Backend/.parcel-cache
+Backend/.next
+Backend/dist
+Backend/build
+
+# Frontend
+Frontend/node_modules/
+Frontend/.env
+Frontend/.parcel-cache
+Frontend/.next
+Frontend/dist
+Frontend/build
+
+# Optional npm cache directory
+.npm
+
+# Misc
+.vite
+.idea/
+
+# Ignore generated yarn files
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

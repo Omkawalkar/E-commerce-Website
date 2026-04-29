@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sign Up | Equinox Marketplace</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="create.css">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#00677d",
+                        "background": "#f9f9f9",
+                        "on-secondary-fixed-variant": "#414750",
+                        "tertiary-container": "#7dd5f0",
+                        "on-background": "#1a1c1c",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#dde3ee",
+                        "on-secondary-container": "#5d636d",
+                        "primary-container": "#febd69",
+                        "secondary": "#595f68",
+                        "primary-fixed-dim": "#fbba67",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary-fixed-dim": "#7ad3ed",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#dae0eb",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#774b00",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e2e2e2",
+                        "inverse-surface": "#2f3131",
+                        "inverse-primary": "#fbba67",
+                        "secondary-fixed-dim": "#c1c7d2",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#2a1700",
+                        "primary-fixed": "#ffddb7",
+                        "surface": "#f9f9f9",
+                        "outline": "#837566",
+                        "surface-container": "#eeeeee",
+                        "outline-variant": "#d5c4b2",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "on-primary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#001f27",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f3f3f3",
+                        "primary": "#845403",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#514538",
+                        "on-secondary-fixed": "#161c24",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#b2ebff",
+                        "surface-tint": "#845403",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-container": "#005c6f",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-dim": "#dadada",
+                        "on-surface": "#1a1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Public Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container-low text-on-surface min-h-screen flex flex-col">
+    <header class="w-full flex justify-center pt-8 pb-4">
+        <a href="../Home page/home.html" class="text-2xl font-black text-slate-900 tracking-tighter font-headline">MarketEngine</a>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center px-4 py-8">
+        <div class="w-full max-w-[400px] bg-surface-container-lowest p-8 rounded-xl ring-1 ring-outline-variant/15">
+            <h1 class="text-3xl font-bold text-on-surface mb-6 tracking-tight">Create account</h1>
+            
+            <!-- Error/Success message container -->
+            <div id="messageContainer"></div>
+            
+            <form id="registrationForm" class="space-y-5">
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-semibold text-on-surface" for="full_name">Full Name</label>
+                    <input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline rounded-lg focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-on-surface-variant/50" id="full_name" name="full_name" placeholder="First and last name" type="text" required/>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-semibold text-on-surface" for="account_id">Email or mobile number</label>
+                    <input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline rounded-lg focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all" id="account_id" name="account_id" type="text" required/>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="block text-sm font-semibold text-on-surface" for="password">Password</label>
+                    <input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline rounded-lg focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all placeholder:text-on-surface-variant/50" id="password" name="password" placeholder="At least 6 characters" type="password" required/>
+                    <div class="flex items-center gap-2 pt-1">
+                        <span class="material-symbols-outlined text-sm text-tertiary">info</span>
+                        <p class="text-[11px] text-on-secondary-container leading-tight">Passwords must be at least 6 characters.</p>
+                    </div>
+                </div>
+                <div class="space-y-1.5 pb-2">
+                    <label class="block text-sm font-semibold text-on-surface" for="re_password">Re-enter password</label>
+                    <input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline rounded-lg focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all" id="re_password" name="re_password" type="password" required/>
+                </div>
+                <button class="w-full py-2.5 bg-gradient-to-b from-primary-container to-[#f9ab40] text-on-primary-fixed font-semibold rounded-lg hover:shadow-lg transition-all active:scale-[0.98] focus:ring-2 focus:ring-offset-2 focus:ring-primary-container" type="submit">
+                    Create your Equinox account
+                </button>
+            </form>
+
+            <div class="mt-6 space-y-4">
+                <p class="text-xs text-on-secondary-container leading-relaxed">
+                    By creating an account, you agree to Equinox Marketplace's
+                    <a class="text-tertiary hover:text-primary hover:underline transition-colors" href="#">Conditions of Use</a> and
+                    <a class="text-tertiary hover:text-primary hover:underline transition-colors" href="#">Privacy Notice</a>.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full py-12 px-6 flex flex-col items-center gap-6 bg-surface-container-low">
+        <div class="h-px w-full max-w-screen-md bg-gradient-to-r from-transparent via-outline-variant/50 to-transparent"></div>
+        <div class="flex gap-8 text-[11px] font-medium tracking-wide uppercase text-on-secondary-container">
+            <a class="hover:text-on-secondary-fixed transition-colors" href="#">Terms</a>
+            <a class="hover:text-on-secondary-fixed transition-colors" href="#">Privacy</a>
+            <a class="hover:text-on-secondary-fixed transition-colors" href="#">Help</a>
+        </div>
+        <p class="font-body text-[10px] tracking-wider text-on-secondary-fixed-variant opacity-60">
+            © 2024 Equinox Marketplace. Precision Utility.
+        </p>
+    </footer>
+
+    <!-- Make sure to link the correct JavaScript file -->
+    <script src="create.js"></script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MarketEngine | Inventory Management</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="productmanagement.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#00677d",
+                        "on-primary-fixed-variant": "#653e00",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#dae0eb",
+                        "surface-dim": "#dadada",
+                        "secondary-fixed-dim": "#c1c7d2",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#febd69",
+                        "on-tertiary-fixed": "#001f27",
+                        "surface-container-low": "#f3f3f3",
+                        "surface": "#f9f9f9",
+                        "primary-fixed-dim": "#fbba67",
+                        "primary-fixed": "#ffddb7",
+                        "on-background": "#1a1c1c",
+                        "tertiary-fixed-dim": "#7ad3ed",
+                        "tertiary-container": "#7dd5f0",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "background": "#f9f9f9",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface": "#1a1c1c",
+                        "outline-variant": "#d5c4b2",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "surface-container-highest": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#514538",
+                        "on-secondary-fixed-variant": "#414750",
+                        "secondary-fixed": "#dde3ee",
+                        "tertiary-fixed": "#b2ebff",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed": "#161c24",
+                        "inverse-surface": "#2f3131",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "on-tertiary-container": "#005c6f",
+                        "inverse-primary": "#fbba67",
+                        "on-secondary-container": "#5d636d",
+                        "primary": "#845403",
+                        "outline": "#837566",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "secondary": "#595f68",
+                        "on-primary-container": "#774b00",
+                        "on-primary-fixed": "#2a1700",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#845403"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Public Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-surface font-body text-on-surface">
+    <header
+        class="bg-white/70 backdrop-blur-[20px] dark:bg-[#131921]/70 docked full-width top-0 sticky z-50 shadow-[0px_12px_32px_rgba(19,25,33,0.06)] flex justify-between items-center w-full px-6 py-3 max-w-[100vw]">
+        <div class="flex items-center gap-8">
+            <span class="text-xl font-black text-[#131921] dark:text-white font-headline">MarketEngine</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="relative flex items-center">
+                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+                <input
+                    class="bg-surface-container-highest border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary-container w-64"
+                    placeholder="Search resources..." type="text" />
+            </div>
+            <button
+                class="material-symbols-outlined text-on-surface hover:bg-slate-100 p-2 rounded-full transition-colors">notifications</button>
+            <button
+                class="material-symbols-outlined text-on-surface hover:bg-slate-100 p-2 rounded-full transition-colors">settings</button>
+            <img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant/15"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzHDu_GG8jA-rw2mD9lY_kwbgqXLBrT16pr6VedRUXIy4ewri6t41RyAN6ZJky9gyK0NrBpW1B1I2cIZ23ZsJlyNtLz3rgIcPk52VG70R6HUZWSmtFu11MD9xkYdYu-R6nUVmEcNcgSowhGOk9RFqrWaFdlj0wmY4SVXt6R20T7eUqCoO3ZmXe3Rb-WsHkQaN3CmNW9cZQwuf9p17AkonGyI9ibUOoKujD3tXPzIcedBkCtkViQU4Ys6ktUugGYlXWZ6AmjTOtVTz3" />
+        </div>
+    </header>
+    <div class="flex">
+        <aside
+            class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 pt-16 bg-slate-50 dark:bg-[#131921] p-4 space-y-2 z-40">
+            <div class="mb-8 px-2 py-4">
+                
+            </div>
+            <nav class="flex-1 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-2 bg-[#febd69] text-[#131921] rounded-md font-bold shadow-sm translate-x-1 duration-200"
+                    href="#">
+                    <span class="material-symbols-outlined active-nav-link">inventory_2</span>
+                    <span class="text-sm">Inventory</span>
+                </a>
+                <a href="../Admin%20Order/adminorder.html"
+                    class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#febd69]/10 transition-all rounded-md group">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="text-sm font-medium">Orders</span>
+                </a>
+
+            </nav>
+            <div class="border-t border-outline-variant/15 pt-4 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#febd69]/10 transition-all rounded-md group"
+                    href="#">
+                    <span class="material-symbols-outlined">help</span>
+                    <span class="text-sm font-medium">Support</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#febd69]/10 transition-all rounded-md group"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-sm font-medium">Settings</span>
+                </a>
+            </div>
+        </aside>
+        <main class="flex-1 md:ml-64 bg-surface-container-low min-h-screen pb-20">
+            <div class="max-w-4xl mx-auto px-6 py-8">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <nav class="flex items-center gap-2 text-sm text-on-secondary-container mb-2">
+                            <span>Inventory</span>
+                            <span class="material-symbols-outlined text-xs">chevron_right</span>
+                            <span class="font-semibold text-on-surface">Add New Product</span>
+                        </nav>
+                        <h1 class="text-3xl font-black font-headline tracking-tight text-on-surface">Equinox Marketplace
+                        </h1>
+                        <p class="text-on-surface-variant">Listing details for your premium inventory</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button
+                            class="px-6 py-2.5 rounded-xl text-on-secondary-fixed font-semibold hover:bg-surface-container-high transition-colors">Discard</button>
+                        <button
+                            class="update-add-btn px-8 py-2.5 rounded-xl bg-gradient-to-b from-primary-container to-[#f9a825] text-on-primary-fixed font-bold shadow-md active:scale-95 transition-transform">Update/Add
+                            Product</button>
+                    </div>
+                </div>
+
+                <!-- Message Container -->
+                <div id="messageContainer"></div>
+
+                <form id="productForm" class="space-y-6">
+                    <div class="space-y-6">
+                        <section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="material-symbols-outlined text-primary">info</span>
+                                <h2 class="text-xl font-bold font-headline">Primary Info</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-semibold mb-2 text-on-surface-variant">Product
+                                        Title</label>
+                                    <input id="productName"
+                                        class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary-container rounded-xl px-4 py-3 text-on-surface"
+                                        placeholder="e.g. Equinox Ultra-Slim OLED Monitor" type="text" />
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-sm font-semibold mb-2 text-on-surface-variant">Category</label>
+                                    <select id="category"
+                                        class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary-container rounded-xl px-4 py-3 text-on-surface appearance-none">
+                                        <option>Electronics</option>
+                                        <option>Home & Kitchen</option>
+                                        <option>Fashion</option>
+                                        <option>Books</option>
+                                        <option>Beauty</option>
+                                        <option>Sports</option>
+                                        <option>Toys</option>
+                                        <option>Automotive</option>
+                                        <option>Groceries</option>
+                                        <option>Health</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-sm font-semibold mb-2 text-on-surface-variant">Brand</label>
+                                    <input id="brand"
+                                        class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary-container rounded-xl px-4 py-3 text-on-surface"
+                                        placeholder="Equinox" type="text" />
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="material-symbols-outlined text-primary">description</span>
+                                <h2 class="text-xl font-bold font-headline">Description</h2>
+                            </div>
+                            <div class="border border-outline-variant/30 rounded-xl overflow-hidden">
+                                <div
+                                    class="bg-surface-container-high px-4 py-2 flex gap-4 border-b border-outline-variant/30">
+                                    <button
+                                        class="material-symbols-outlined text-on-surface-variant">format_bold</button>
+                                    <button
+                                        class="material-symbols-outlined text-on-surface-variant">format_italic</button>
+                                    <button
+                                        class="material-symbols-outlined text-on-surface-variant">format_list_bulleted</button>
+                                    <button class="material-symbols-outlined text-on-surface-variant">link</button>
+                                    <button class="material-symbols-outlined text-on-surface-variant">image</button>
+                                </div>
+                                <textarea id="description"
+                                    class="w-full bg-surface-container-lowest border-none focus:ring-0 p-4 text-on-surface resize-none"
+                                    placeholder="Describe your product in editorial detail..." rows="8"></textarea>
+                            </div>
+                        </section>
+
+                        <section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="material-symbols-outlined text-primary">payments</span>
+                                <h2 class="text-xl font-bold font-headline">Pricing & Inventory</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <div>
+                                    <label class="block text-sm font-semibold mb-2 text-on-surface-variant">Base Price
+                                        (USD)</label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-3 text-on-surface-variant">$</span>
+                                        <input id="price"
+                                            class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary-container rounded-xl pl-8 pr-4 py-3 text-on-surface"
+                                            placeholder="0.00" type="number" step="0.01" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold mb-2 text-on-surface-variant">Original
+                                        Price (Optional)</label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-3 text-on-surface-variant">$</span>
+                                        <input id="originalPrice"
+                                            class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary-container rounded-xl pl-8 pr-4 py-3 text-on-surface"
+                                            placeholder="0.00" type="number" step="0.01" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold mb-2 text-on-surface-variant">Stock
+                                        Quantity</label>
+                                    <input id="stock"
+                                        class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary-container rounded-xl px-4 py-3 text-on-surface"
+                                        placeholder="100" type="number" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold mb-2 text-on-surface-variant">SKU</label>
+                                    <input id="sku"
+                                        class="w-full bg-surface-container border-none focus:ring-2 focus:ring-primary-container rounded-xl px-4 py-3 text-on-surface"
+                                        placeholder="EQX-PRO-001" type="text" />
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+                            <div class="flex justify-between items-center mb-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">settings_applications</span>
+                                    <h2 class="text-xl font-bold font-headline">Technical Specs</h2>
+                                </div>
+                                <button id="addSpecBtn" type="button"
+                                    class="flex items-center gap-1 text-sm font-bold text-primary hover:underline">
+                                    <span class="material-symbols-outlined text-sm">add</span>
+                                    Add Row
+                                </button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr
+                                            class="text-left text-xs font-bold uppercase tracking-wider text-on-secondary-container">
+                                            <th class="pb-4 pr-4">Specification Name</th>
+                                            <th class="pb-4 pr-4">Value</th>
+                                            <th class="pb-4 w-10"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="specsTable" class="divide-y divide-outline-variant/15">
+                                        <tr>
+                                            <td class="py-4 pr-4">
+                                                <input
+                                                    class="w-full bg-transparent border-none focus:ring-0 text-sm font-medium"
+                                                    type="text" value="Material" />
+                                            </td>
+                                            <td class="py-4 pr-4">
+                                                <input class="w-full bg-transparent border-none focus:ring-0 text-sm"
+                                                    type="text" value="Anodized Aluminum" />
+                                            </td>
+                                            <td class="py-4 text-right">
+                                                <button type="button"
+                                                    class="remove-spec material-symbols-outlined text-on-surface-variant hover:text-error transition-colors text-lg">delete</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-4 pr-4">
+                                                <input
+                                                    class="w-full bg-transparent border-none focus:ring-0 text-sm font-medium"
+                                                    type="text" value="Weight" />
+                                            </td>
+                                            <td class="py-4 pr-4">
+                                                <input class="w-full bg-transparent border-none focus:ring-0 text-sm"
+                                                    type="text" value="1.2 kg" />
+                                            </td>
+                                            <td class="py-4 text-right">
+                                                <button type="button"
+                                                    class="remove-spec material-symbols-outlined text-on-surface-variant hover:text-error transition-colors text-lg">delete</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-4 pr-4">
+                                                <input
+                                                    class="w-full bg-transparent border-none focus:ring-0 text-sm font-medium"
+                                                    type="text" value="Connectivity" />
+                                            </td>
+                                            <td class="py-4 pr-4">
+                                                <input class="w-full bg-transparent border-none focus:ring-0 text-sm"
+                                                    type="text" value="Bluetooth 5.2, Wi-Fi 6" />
+                                            </td>
+                                            <td class="py-4 text-right">
+                                                <button type="button"
+                                                    class="remove-spec material-symbols-outlined text-on-surface-variant hover:text-error transition-colors text-lg">delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+                            <div class="flex items-center gap-2 mb-6">
+                                <span class="material-symbols-outlined text-primary">add_photo_alternate</span>
+                                <h2 class="text-xl font-bold font-headline">Product Media</h2>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div id="imageUpload"
+                                    class="aspect-square bg-surface-container rounded-xl flex flex-col items-center justify-center border-2 border-dashed border-outline-variant/30 group cursor-pointer hover:border-primary-container transition-colors">
+                                    <span
+                                        class="material-symbols-outlined text-3xl text-on-surface-variant group-hover:text-primary transition-colors">upload</span>
+                                    <span class="text-xs font-bold text-on-surface-variant mt-2">Upload Image</span>
+                                    <input type="file" accept="image/*" multiple style="display: none;" />
+                                </div>
+                                <div
+                                    class="aspect-square bg-surface-container rounded-xl relative group overflow-hidden">
+                                    <img class="w-full h-full object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl5bilRLStujHwOc98qzcdH5lMNoE6G87PJE4DYlEieOg6qzlACbiJY1LiPJ-YQGMys3GUd33XHQu70BOIuRA7CXvVPPBxs0TjC5T3Gffg7tC-o7WXr6X2vWRtzvKb99Lx8a8yOTuq4utZ4hGJl2uVBo7spPZTM5wB3argTYZnZkFvDDkpxre05hVgWnSl6zEbMLFA6fOJnRJmfT0exA1IQH2x_ppAH3t62dK-_VdqPvm_h4RG10cs41Scsh_ZepP8b4REK3JIkXfj" />
+                                    <button
+                                        class="absolute top-2 right-2 bg-white/80 p-1 rounded-full text-error opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span class="material-symbols-outlined text-sm">close</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="imagePreview" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4"></div>
+                        </section>
+                    </div>
+                </form>
+
+                <div
+                    class="md:hidden fixed bottom-0 left-0 right-0 bg-white p-4 shadow-[0px_-4px_10px_rgba(0,0,0,0.05)] flex gap-4">
+                    <button
+                        class="flex-1 py-3 rounded-xl bg-surface-container-highest text-on-surface font-bold">Cancel</button>
+                    <button class="flex-[2] py-3 rounded-xl bg-primary-container text-on-primary-fixed font-bold">Add
+                        Product</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="productmanagement.js"></script>
+</body>
+
+</html>

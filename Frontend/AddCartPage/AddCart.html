@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Shopping Cart | CURATED ENGINE</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="AddCart.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#00677d",
+                        "surface-dim": "#dadada",
+                        "outline-variant": "#d5c4b2",
+                        "primary-fixed": "#ffddb7",
+                        "tertiary-fixed": "#b2ebff",
+                        "on-tertiary-fixed-variant": "#004e5e",
+                        "secondary-fixed": "#dde3ee",
+                        "on-surface": "#1a1c1c",
+                        "surface-container-low": "#f3f3f3",
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed-variant": "#653e00",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#161c24",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#fbba67",
+                        "on-primary-fixed": "#2a1700",
+                        "surface-variant": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "outline": "#837566",
+                        "on-surface-variant": "#514538",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#7dd5f0",
+                        "background": "#f9f9f9",
+                        "primary-container": "#febd69",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#dae0eb",
+                        "surface-bright": "#f9f9f9",
+                        "surface": "#f9f9f9",
+                        "on-secondary-container": "#5d636d",
+                        "tertiary-fixed-dim": "#7ad3ed",
+                        "on-tertiary-container": "#005c6f",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#414750",
+                        "surface-container-high": "#e8e8e8",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#845403",
+                        "on-tertiary-fixed": "#001f27",
+                        "surface-container-highest": "#e2e2e2",
+                        "inverse-primary": "#fbba67",
+                        "secondary-fixed-dim": "#c1c7d2",
+                        "inverse-surface": "#2f3131",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#595f68",
+                        "on-primary-container": "#774b00",
+                        "on-background": "#1a1c1c",
+                        "primary": "#845403"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Public Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-surface-container-low text-on-surface">
+    <header class="bg-[#131921]/70 backdrop-blur-md sticky top-0 z-50 shadow-lg">
+        <div class="flex items-center justify-between px-6 py-3 w-full gap-8">
+            <div class="flex items-center gap-8 flex-1">
+                <a href="../Home page/home.html"
+                    class="text-2xl font-black text-[#febd69] tracking-tighter whitespace-nowrap">MarketEngine</a>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-2xl relative">
+                    <input id="searchInput"
+                        class="w-full bg-white/90 border-none rounded-lg py-2 px-4 focus:ring-2 focus:ring-[#febd69] focus:outline-none transition-all text-gray-900 placeholder-gray-500"
+                        placeholder="Search products..." type="text" />
+                    <button id="searchBtn"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-[#febd69] p-1.5 rounded-md hover:bg-[#fcae4b] transition-colors">
+                        <span class="material-symbols-outlined text-gray-800 text-xl">search</span>
+                    </button>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6">
+
+                <div class="flex items-center gap-6 border-l border-white/10 pl-6">
+                    <!-- Account Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 hover:text-[#febd69] transition-colors cursor-pointer">
+                            <span class="material-symbols-outlined text-white text-2xl">account_circle</span>
+                            <span class="text-sm font-medium text-white hidden lg:inline">Account</span>
+                            <span
+                                class="material-symbols-outlined text-white text-sm hidden lg:inline">expand_more</span>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div
+                            class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg hidden group-hover:block z-50">
+                            <div class="py-2">
+                                <div class="px-4 py-3 border-b border-gray-100">
+                                    <p class="text-sm font-semibold text-gray-900" id="userNameDisplay">Loading...</p>
+                                    <p class="text-xs text-gray-500" id="userEmailDisplay"></p>
+                                </div>
+                                <a href="../OrderPage/order.html"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span
+                                        class="material-symbols-outlined text-sm align-middle mr-2">shopping_bag</span>
+                                    My Orders
+                                </a>
+                                <a href="../AddCartPage/AddCart.html"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span
+                                        class="material-symbols-outlined text-sm align-middle mr-2">shopping_cart</span>
+                                    My Cart
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">favorite</span>
+                                    Wishlist
+                                </a>
+                                <div class="border-t border-gray-100 my-1"></div>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">settings</span>
+                                    Account Settings
+                                </a>
+                                <a href="#" onclick="logout()"
+                                    class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-2">logout</span>
+                                    Sign Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Icon -->
+                    <a href="../AddCartPage/AddCart.html"
+                        class="relative cursor-pointer text-[#febd69] hover:opacity-80 transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-3xl">shopping_cart</span>
+                        <span id="cartCount"
+                            class="absolute -top-1 -right-1 bg-white text-slate-900 text-[10px] font-bold px-1.5 rounded-full hidden">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        // Get user data from localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = localStorage.getItem('token');
+
+        // Update user name in dropdown
+        function updateUserDropdown() {
+            const userNameSpan = document.getElementById('userNameDisplay');
+            const userEmailSpan = document.getElementById('userEmailDisplay');
+
+            if (userNameSpan && user.fullName) {
+                userNameSpan.innerHTML = user.fullName;
+            } else if (userNameSpan) {
+                userNameSpan.innerHTML = 'Guest User';
+            }
+
+            if (userEmailSpan && user.email) {
+                userEmailSpan.innerHTML = user.email;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '../Login Page/login.html';
+            return false;
+        }
+
+        // Update user dropdown when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            updateUserDropdown();
+
+            // If no token, redirect to login
+            if (!token) {
+                // Don't redirect, just show guest
+                const userNameSpan = document.getElementById('userNameDisplay');
+                if (userNameSpan) {
+                    userNameSpan.innerHTML = 'Not Signed In';
+                }
+            }
+        });
+
+        // Search functionality
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput ? searchInput.value.trim() : '';
+            if (searchTerm) {
+                window.location.href = `../ProductCard/card.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInput = document.getElementById('searchInput');
+        if (searchBtn) searchBtn.addEventListener('click', performSearch);
+        if (searchInput) searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+    </script>
+
+    <main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto min-h-screen">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+            <!-- Loading Indicator -->
+            <div id="loadingIndicator" class="lg:col-span-8 text-center py-12 hidden">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-container"></div>
+                <p class="mt-2 text-on-surface-variant">Loading cart...</p>
+            </div>
+
+            <!-- Cart Items Container -->
+            <div id="cartItemsContainer" class="lg:col-span-8 space-y-6">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+
+            <!-- Empty Cart Message -->
+            <div id="emptyCartMessage" class="lg:col-span-8 text-center py-12 hidden">
+                <span class="material-symbols-outlined text-6xl text-gray-400">shopping_cart</span>
+                <p class="text-gray-500 mt-4">Your cart is empty</p>
+                <a href="../ProductCard/card.html"
+                    class="inline-block mt-4 bg-primary-container px-6 py-2 rounded-lg">Continue Shopping</a>
+            </div>
+
+            <div class="lg:col-span-4">
+                <div class="sticky top-32 space-y-6">
+                    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_12px_32px_rgba(19,25,33,0.06)]">
+                        <h2 class="text-2xl font-black tracking-tight text-on-surface mb-8">Order Summary</h2>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-on-surface-variant font-medium">Subtotal (<span
+                                        id="itemCount">0</span> items)</span>
+                                <span id="subtotal" class="text-on-surface font-bold">$0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-on-surface-variant font-medium">Estimated Shipping</span>
+                                <span class="text-tertiary font-bold">FREE</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-on-surface-variant font-medium">Estimated Tax (8%)</span>
+                                <span id="tax" class="text-on-surface font-bold">$0.00</span>
+                            </div>
+                            <div class="pt-4 border-t border-surface-container-high flex justify-between items-center">
+                                <span class="text-lg font-bold text-on-surface">Total</span>
+                                <span id="total" class="text-3xl font-black text-on-surface">$0.00</span>
+                            </div>
+                        </div>
+                        <button onclick="proceedToCheckout()"
+                            class="proceed-checkout-btn w-full bg-primary-container text-on-primary-fixed py-4 rounded-lg font-bold text-lg shadow-sm hover:brightness-105 transition-all flex items-center justify-center gap-2 group">
+                            Proceed to Checkout
+                            <span
+                                class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer
+        class="w-full mt-auto bg-slate-900 dark:bg-black flex flex-col md:flex-row justify-between items-center py-12 px-12 border-t border-slate-800">
+        <div class="flex flex-col md:flex-row items-center gap-8 mb-8 md:mb-0">
+            <span class="text-white text-xs font-['Inter'] uppercase tracking-widest">© 2024 THE CURATED ENGINE.
+                PRECISION UTILITY FOR HIGH-END ELECTRONICS.</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-8">
+            <a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-400 hover:text-amber-400 transition-all opacity-80 hover:opacity-100"
+                href="#">Returns & Exchange</a>
+            <a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-400 hover:text-amber-400 transition-all opacity-80 hover:opacity-100"
+                href="#">Technical Support</a>
+            <a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-400 hover:text-amber-400 transition-all opacity-80 hover:opacity-100"
+                href="#">Privacy Policy</a>
+            <a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-400 hover:text-amber-400 transition-all opacity-80 hover:opacity-100"
+                href="#">Sustainability</a>
+            <a class="font-['Inter'] text-xs uppercase tracking-widest text-slate-400 hover:text-amber-400 transition-all opacity-80 hover:opacity-100"
+                href="#">Corporate Sales</a>
+        </div>
+    </footer>
+    <script src="AddCart.js"></script>
+</body>
+
+</html>
