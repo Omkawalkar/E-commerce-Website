@@ -76,41 +76,7 @@ Security Features:
 - Protection against XSS attacks
 - CORS configuration for secure cross-origin requests
 
-Project Structure
------------------
 
-The project has the following folder structure:
-
-E-COMMERCE/
-|
-+-- Backend/
-|   +-- config/           Database configuration files
-|   +-- middleware/       Authentication and error handling middleware
-|   +-- models/          Database models for User, Product, Order
-|   +-- routes/          API route definitions
-|   +-- node_modules/    Backend dependencies
-|   +-- package.json     Backend dependencies list
-|   +-- package-lock.json
-|   +-- server.js        Backend entry point
-|
-+-- Frontend/
-|   +-- public/          Static assets like images and index.html
-|   +-- src/             React source code
-|   |   +-- components/  Reusable UI components
-|   |   +-- pages/       Page components for different routes
-|   |   +-- redux/       State management files
-|   |   +-- utils/       Helper functions and utilities
-|   |   +-- App.js       Main React component
-|   +-- node_modules/    Frontend dependencies
-|   +-- package.json     Frontend dependencies list
-|
-+-- .dist/               Distribution files
-+-- .git/                Git repository data
-+-- .vscode/             VS Code editor settings
-+-- .env                 Environment variables file
-+-- .gitignore           Git ignore rules
-+-- package.json         Root package.json
-+-- package-lock.json    Root lock file
 
 Prerequisites
 -------------
