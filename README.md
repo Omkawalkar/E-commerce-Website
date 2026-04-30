@@ -1,345 +1,586 @@
-E-Commerce Website
-==================
+# WEB NOTE'S - Full Stack Notes Application
 
-This is a complete full-stack e-commerce web application that allows users to browse products, add items to shopping cart, process payments, and manage orders. The application includes both customer-facing interfaces and an admin dashboard for inventory and order management.
+A complete full-stack note-taking web application that allows users to create, edit, organize, and manage notes with rich text formatting, folder organization, user authentication, and real-time search capabilities.
 
-Table of Contents
------------------
+---
 
-1. Project Overview
-2. Technology Stack
-3. Features
+## Table of Contents
+
+1. Overview
+2. Features
+3. Technology Stack
 4. Project Structure
 5. Prerequisites
-6. Installation and Setup
-7. Running the Application
-8. Environment Variables
-9. API Endpoints
-10. Database Schema
-11. Usage Guide
-12. Troubleshooting
-13. Contributing
+6. Installation Guide
+7. Backend Setup
+8. Frontend Setup
+9. Running the Application
+10. API Documentation
+11. Database Schema
+12. Usage Guide
+13. Troubleshooting
 14. License
 
-Project Overview
-----------------
+---
 
-This E-Commerce platform is a complete online shopping application that provides a seamless shopping experience. The backend is built with Node.js and Express, using MongoDB for data storage. The frontend is developed with React.js for a responsive and interactive user interface. The application uses JWT for secure authentication and follows REST API architecture for communication between frontend and backend.
+## Overview
 
-Technology Stack
-----------------
+WEB NOTE'S is a modern note-taking application built with the MERN stack. It provides users with a secure platform to create, organize, and manage their notes. The application features user authentication, rich text editing, folder organization, pinning and favoriting capabilities, and persistent data storage using MongoDB. Each user has their own isolated workspace, ensuring complete data privacy and security.
 
-Backend Technologies:
-- Node.js as the runtime environment
-- Express.js as the web framework
-- MongoDB with Mongoose ODM for database
-- JWT for authentication tokens
-- bcryptjs for password encryption
-- Multer for file uploads
+---
 
-Frontend Technologies:
-- React.js for user interface
-- Redux or Context API for state management
-- CSS3 or Tailwind CSS for styling
-- Axios for HTTP requests
+## Features
 
-Development Tools:
-- Git for version control
-- npm for package management
-- dotenv for environment configuration
+### User Authentication and Security
 
-Features
---------
+- User registration with encrypted password storage using bcryptjs
+- Secure login using JSON Web Token authentication
+- Token-based authorization for all protected API routes
+- Password hashing with 10 salt rounds for enhanced security
+- 7-day token expiration for automatic logout
+- Complete user data isolation between different accounts
 
-User Features:
-- User registration and login system
-- Product browsing with search functionality
-- Product filtering by category, price range, and ratings
-- Shopping cart management
-- Order placement process
-- Payment integration
-- Order history viewing
-- User profile management
+### Note Management
 
-Admin Features:
-- Admin dashboard with analytics
-- Product management including add, edit, and delete operations
-- Inventory management system
-- Order management and tracking
-- User management controls
-- Sales reporting and analytics
+- Create, read, update, and delete notes
+- Rich text editing with custom toolbar
+- Auto-resize text editor based on content length
+- Real-time search by note title or content
+- Export notes as PDF files
+- Automatic save functionality
 
-Security Features:
-- Password hashing for security
-- JWT based authentication
-- Input validation for all forms
-- Protection against XSS attacks
-- CORS configuration for secure cross-origin requests
+### Rich Text Editor Features
 
+Text Formatting Options:
+- Bold, Italic, and Underline formatting
+- Text color selection with 8 predefined colors
+- Text highlight with 8 predefined colors
+- Custom color picker for both text and highlight
+- Font size adjustment with 7 different sizes from 10px to 32px
 
+Paragraph Formatting Options:
+- Bulleted lists for unordered information
+- Numbered lists for ordered information
+- Multilevel lists for nested content
+- Text alignment including Left, Center, Right, and Justify
+- Heading styles H1 and H2
+- Blockquote formatting for quoted content
+- Hyperlink insertion
 
-Prerequisites
--------------
+### Organization Features
 
-Before running this project on your computer, ensure you have the following software installed:
+Folder Management System:
+- Create new custom folders
+- Edit existing folder names
+- Delete folders with automatic note reassignment
+- View all notes inside a specific folder
+- Move notes between different folders
+- Display note count for each folder
 
-- Node.js version 14 or higher
-- npm version 6 or higher or yarn package manager
-- MongoDB installed locally or a MongoDB Atlas cloud account
-- Git for cloning the repository
+Note Organization Options:
+- Pin important notes to access them quickly
+- Mark notes as favorites for easy reference
+- Smart home page shows only regular notes
+- Dedicated pages for pinned notes only
+- Dedicated pages for favorite notes only
 
-Installation and Setup
-----------------------
+### User Experience Features
 
-Follow these steps to get the application running on your local machine.
+- Dark mode and Light mode theme toggle
+- Responsive design that works on all devices
+- User profile section with logout functionality
+- Real-time search with instant filtering
+- Loading states for all async operations
+- Confirmation dialogs for delete operations
+- Error handling with user-friendly messages
 
-Step 1: Clone the Repository
+---
 
-Open your terminal and run the following command:
+## Technology Stack
 
-git clone https://github.com/Omkawalkar/E-commerce-website.git
-cd E-commerce-website
+### Frontend Technologies
 
-Step 2: Install Backend Dependencies
+HTML5
+- Semantic markup structure for better accessibility
+- Contenteditable attribute for rich text editing
+- Responsive meta tags for mobile devices
 
-Navigate to the Backend folder and install the required packages:
+CSS3
+- Tailwind CSS utility framework for styling
+- CSS Grid and Flexbox for layouts
+- Custom CSS animations for transitions
+- Dark mode support with CSS variables
+- Media queries for responsive design
 
-cd Backend
+JavaScript ES6+
+- Modern JavaScript features including async/await
+- Arrow functions and destructuring assignments
+- Fetch API for backend communication
+- LocalStorage for session and token management
+- DOM manipulation for dynamic content updates
+- Event handling for user interactions
+
+External Libraries
+- Tailwind CSS version 3.x for styling
+- Google Fonts Inter for typography
+- Google Material Symbols for icons
+
+### Backend Technologies
+
+Runtime and Framework
+- Node.js version 18 or higher as JavaScript runtime
+- Express.js version 5.x as web application framework
+
+Database
+- MongoDB version 6 or higher as NoSQL database
+- Mongoose version 9.x as Object Data Modeling library
+
+Authentication and Security
+- JSON Web Token version 9.x for authentication
+- bcryptjs version 3.x for password hashing
+- CORS for cross-origin resource sharing
+- dotenv version 17.x for environment variable management
+
+Development Tools
+- Nodemon version 3.x for automatic server restart during development
+
+---
+
+## Project Structure
+
+web-notes/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js                      # MongoDB connection configuration
+│   ├── controllers/
+│   │   ├── authController.js          # User authentication logic
+│   │   ├── noteController.js          # Note CRUD operations
+│   │   └── folderController.js        # Folder CRUD operations
+│   ├── middleware/
+│   │   └── authMiddleware.js          # JWT token verification middleware
+│   ├── models/
+│   │   ├── User.js                    # User database schema
+│   │   ├── Note.js                    # Note database schema
+│   │   └── Folder.js                  # Folder database schema
+│   ├── routes/
+│   │   ├── authRoutes.js              # Authentication API endpoints
+│   │   ├── noteRoutes.js              # Note management API endpoints
+│   │   └── folderRoutes.js            # Folder management API endpoints
+│   ├── .env                           # Environment variables configuration
+│   ├── package.json                   # Backend dependencies and scripts
+│   └── server.js                      # Application entry point
+│
+├── frontend/
+│   ├── add new/
+│   │   ├── new.html                   # Create and edit note page
+│   │   ├── new.css                    # Styles for note editor
+│   │   └── new.js                     # Rich text editor logic
+│   ├── Home page/
+│   │   ├── Home.html                  # Main dashboard page
+│   │   ├── Home.css                   # Styles for dashboard
+│   │   └── Home.js                    # Notes display and search logic
+│   ├── login/
+│   │   ├── login.html                 # Login page
+│   │   ├── login.css                  # Styles for login
+│   │   └── login.js                   # Authentication logic
+│   ├── create/
+│   │   ├── create.html                # Registration page
+│   │   ├── create.css                 # Styles for registration
+│   │   └── create.js                  # User registration logic
+│   ├── Favorite page/
+│   │   ├── favorite.html              # Favorites display page
+│   │   ├── favorite.css               # Styles for favorites
+│   │   └── favorite.js                # Favorites filtering logic
+│   ├── pinned page/
+│   │   ├── pinned.html                # Pinned notes page
+│   │   ├── pinned.css                 # Styles for pinned notes
+│   │   └── pinned.js                  # Pinned notes filtering logic
+│   └── folder/
+│       ├── folder.html                # Folders management page
+│       ├── folder.css                 # Styles for folders
+│       └── folder.js                  # Folder CRUD operations
+│
+└── README.md                          # Project documentation
+
+---
+
+## Prerequisites
+
+Before installing the application, ensure you have the following installed:
+
+1. Node.js version 18 or higher
+   - Download from nodejs.org
+   - Verify installation: node --version
+
+2. MongoDB version 6 or higher
+   - Download from mongodb.com for local installation
+   - Or create a free MongoDB Atlas cloud account
+   - Verify installation: mongod --version
+
+3. Git (optional, for cloning the repository)
+   - Download from git-scm.com
+
+---
+
+## Installation Guide
+
+### Step 1: Get the Source Code
+
+Option A - Clone using Git:
+git clone https://github.com/yourusername/web-notes.git
+cd web-notes
+
+Option B - Download ZIP:
+- Download the ZIP file from GitHub
+- Extract it to your desired location
+- Open terminal in the extracted folder
+
+### Step 2: Install Backend Dependencies
+
+cd backend
 npm install
 
-The backend dependencies include express, mongoose, jsonwebtoken, bcryptjs, dotenv, cors, multer, and nodemon for development.
+### Step 3: Configure Environment Variables
 
-Step 3: Install Frontend Dependencies
+Create a .env file in the backend folder and add:
 
-Open a new terminal window, navigate to the Frontend folder, and install packages:
-
-cd ../Frontend
-npm install
-
-The frontend dependencies include react, react-dom, react-router-dom, axios, redux or react-redux, and tailwindcss if you are using it.
-
-Step 4: Configure Environment Variables
-
-Create a .env file in the Backend directory. Copy and paste the following variables and update them with your own values:
-
-For Server Configuration:
 PORT=5000
-NODE_ENV=development
+MONGO_URI=mongodb://127.0.0.1:27017/notes_app
+JWT_SECRET=your_super_secret_key_change_this_to_a_strong_key
 
-For Database Configuration:
-MONGODB_URI=mongodb://localhost:27017/ecommerce
+### Step 4: Start MongoDB
 
-If you are using MongoDB Atlas instead of local MongoDB, use this format:
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/ecommerce
+For local MongoDB installation:
 
-For JWT Configuration:
-JWT_SECRET=your_super_secret_key_here
-JWT_EXPIRE=7d
-
-For Payment Configuration if you have implemented payments:
-STRIPE_SECRET_KEY=your_stripe_secret_key
-STRIPE_PUBLIC_KEY=your_stripe_public_key
-
-For Admin Configuration:
-ADMIN_EMAIL=admin@example.com
-ADMIN_PASSWORD=admin123
-
-Step 5: Set Up the Database
-
-If you are using local MongoDB:
-- Install MongoDB Community Edition on your computer
-- Start the MongoDB service
-
-For Windows:
+Windows:
 net start MongoDB
+or
+mongod
 
-For MacOS or Linux:
+MacOS with Homebrew:
+brew services start mongodb-community
+
+Linux:
 sudo systemctl start mongod
 
-If you are using MongoDB Atlas:
-- Create a free cluster at mongodb.com/cloud/atlas
-- Get your connection string from the Atlas dashboard
-- Add the connection string as MONGODB_URI in your .env file
+### Step 5: Start the Backend Server
 
-Running the Application
------------------------
+From the backend folder:
 
-You have two options to run the application.
-
-Option 1: Run Backend and Frontend Separately
-
-To start the Backend Server:
-cd Backend
-npm start
-
-For development with auto-reload when files change:
+Development mode:
 npm run dev
 
-The backend will run on http://localhost:5000
-
-To start the Frontend Development Server:
-cd Frontend
+Production mode:
 npm start
 
-The frontend will run on http://localhost:3000
+You will see:
+Server is running on port 5000
+MongoDB connected: 127.0.0.1
 
-Option 2: Run Both Together from Root Directory
+### Step 6: Open the Frontend
 
-If you have the concurrently package installed at the root level, you can run:
-npm run dev
+Method 1 - VS Code Live Server (Recommended):
+- Install Live Server extension
+- Right-click on frontend/login/login.html
+- Select Open with Live Server
 
-Option 3: Production Build
+Method 2 - Python HTTP Server:
+cd frontend
+python -m http.server 5500
 
-To create a production build of the frontend:
-cd Frontend
-npm run build
+Method 3 - Node.js HTTP Server:
+npx serve frontend
 
-To run the production server:
-cd Backend
-NODE_ENV=production npm start
+The application will be available at: http://127.0.0.1:5500
 
-Access the Application
-----------------------
+---
 
-After starting both servers, you can access:
+## Backend Setup
 
-- Frontend Application at http://localhost:3000
-- Backend API at http://localhost:5000/api
+### Environment Variables Reference
 
-API Endpoints
--------------
+| Variable | Description | Required | Example Value |
+|----------|-------------|----------|---------------|
+| PORT | Backend server port number | Yes | 5000 |
+| MONGO_URI | MongoDB connection string | Yes | mongodb://127.0.0.1:27017/notes_app |
+| JWT_SECRET | Secret key for JWT signing | Yes | your_secure_secret_key_here |
 
-Authentication Routes:
+### NPM Scripts
 
-POST /api/auth/register - Register a new user account
-POST /api/auth/login - Login with existing account
-GET /api/auth/profile - Get the profile of logged in user
-PUT /api/auth/profile - Update user profile information
+| Command | Description |
+|---------|-------------|
+| npm run dev | Start server with auto-restart (development) |
+| npm start | Start server without auto-restart (production) |
+| npm install | Install all dependencies |
 
-Product Routes:
+### Database Collections
 
-GET /api/products - Get list of all products
-GET /api/products/:id - Get details of a single product
-POST /api/products - Create a new product (Admin only)
-PUT /api/products/:id - Update an existing product (Admin only)
-DELETE /api/products/:id - Delete a product (Admin only)
+- users - Stores user account information
+- notes - Stores all notes with user references
+- folders - Stores all folders with user references
 
-Order Routes:
+---
 
-POST /api/orders - Create a new order
-GET /api/orders/myorders - Get orders placed by the logged in user
-GET /api/orders/:id - Get order details by order ID
-PUT /api/orders/:id/pay - Update payment status of an order
+## Frontend Setup
 
-Cart Routes:
+### Page Navigation Structure
 
-GET /api/cart - Get items in user's cart
-POST /api/cart - Add an item to cart
-PUT /api/cart/:id - Update quantity of cart item
-DELETE /api/cart/:id - Remove an item from cart
+1. Login Page (login/login.html) - Entry point for authentication
+2. Create Account Page (create/create.html) - New user registration
+3. Home Page (Home page/Home.html) - Main dashboard showing regular notes
+4. Create Note Page (add new/new.html) - Rich text editor for notes
+5. Edit Note Page (add new/new.html with ID) - Loads existing note for editing
+6. Favorites Page (Favorite page/favorite.html) - Shows favorite notes
+7. Pinned Page (pinned page/pinned.html) - Shows pinned notes
+8. Folders Page (folder/folder.html) - Manage folders and view notes by folder
 
-Database Schema
----------------
+---
 
-User Model Schema:
-- name: String type and required field
-- email: String type, required, and must be unique
-- password: String type and required
-- isAdmin: Boolean type with default value false
-- createdAt: Date type for account creation timestamp
+## Running the Application
 
-Product Model Schema:
-- name: String type and required
-- price: Number type and required
-- description: String type and required
-- category: String type and required
-- countInStock: Number type and required for inventory tracking
-- rating: Number type with default value 0
-- imageUrl: String type for product image path
+Step 1: Open Terminal Window 1 for Backend
+- cd backend
+- npm run dev
+- Keep this terminal window open
 
-Order Model Schema:
-- user: ObjectId type that references the User model
-- orderItems: Array type containing ordered products
-- shippingAddress: Object type with address details
-- paymentMethod: String type for payment method selection
-- totalPrice: Number type for order total
-- isPaid: Boolean type with default false
-- isDelivered: Boolean type with default false
+Step 2: Open Terminal Window 2 for Frontend (Optional)
+- cd frontend
+- python -m http.server 5500
 
-Usage Guide for Customers
--------------------------
+Step 3: Open Browser
+- Go to http://localhost:5500/login/login.html
 
-Register an Account:
-Click on the Sign Up button on the homepage. Enter your name, email address, and a secure password. After registration, you will be automatically logged in or you may need to verify your email if configured.
+Step 4: Create an Account
+- Click Create Account link
+- Fill in your details
+- Click Create Account button
 
-Browse Products:
-After logging in, you can view all products on the homepage. Use the search bar to find specific products by name. You can also filter products by category or by price range.
+Step 5: Login
+- Enter your email and password
+- Click Login button
 
-Add Items to Cart:
-Click on any product to view its details page. Select the quantity you want to purchase. Click the Add to Cart button. You can continue shopping or proceed to checkout.
+Step 6: Start Using the Application
+- Click New Note to create your first note
+- Use the rich text editor to write content
+- Save your note
 
-Checkout Process:
-Review all items in your cart on the cart page. Add your shipping address information. Select your preferred payment method. Review your order summary and place the order.
+---
 
-Track Your Orders:
-Go to the My Orders section in your profile. You can view all your past and current orders. Click on any order to see its status and tracking information.
+## API Documentation
 
-Usage Guide for Admins
-----------------------
+Base URL: http://localhost:5000/api
 
-Admin Login:
-Use the admin email and password you set in the .env file or the admin credentials created in the database. After login, you will see an Admin Dashboard link.
+### Authentication Endpoints
 
-Manage Products:
-From the admin dashboard, you can add new products with images and details. Update existing product information such as price and stock count. Remove products that are no longer available.
+POST /api/auth/register
+Request Body: { "name": "John Doe", "email": "john@example.com", "password": "password123" }
+Success Response: 201 with message and user object
 
-Process Orders:
-View all customer orders in the orders management section. Update order status from pending to processing to shipped to delivered. Mark orders as delivered when the customer receives them.
+POST /api/auth/login
+Request Body: { "email": "john@example.com", "password": "password123" }
+Success Response: 200 with message, token, and user object
 
-Troubleshooting Common Issues
------------------------------
+### Note Endpoints (Authentication Required)
 
-Issue 1: MongoDB Connection Error
+Header: Authorization: Bearer your_jwt_token_here
 
-If you see an error message like MongooseServerSelectionError, this means the application cannot connect to MongoDB. Check if MongoDB is running on your computer. Verify that the MONGODB_URI in your .env file is correct. If using MongoDB Atlas, check your internet connection.
+GET /api/notes - Get all user notes
+GET /api/notes/:id - Get single note
+POST /api/notes - Create new note
+PUT /api/notes/:id - Update note
+DELETE /api/notes/:id - Delete note
 
-Issue 2: Port Already in Use
+### Folder Endpoints (Authentication Required)
 
-If you get an error saying address already in use, it means another application is using port 5000 or 3000. You can either stop the other application or change the port number in your .env file. To change the backend port, set PORT=5001 or any other available port.
+GET /api/folders - Get all user folders
+POST /api/folders - Create new folder
+PUT /api/folders/:id - Update folder
+DELETE /api/folders/:id - Delete folder
 
-Issue 3: npm Install Fails
+---
 
-If npm install gives errors, try deleting the node_modules folder and package-lock.json file, then run npm install again. You can also try clearing npm cache with npm cache clean --force.
+## Database Schema
 
-Issue 4: CORS Errors in Browser
+### User Schema
 
-If you see CORS errors in the browser console, check that the backend CORS configuration allows requests from http://localhost:3000. The frontend API calls should point to http://localhost:5000/api.
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| name | String | Yes | User's full name |
+| email | String | Yes | Unique email address |
+| password | String | Yes | Hashed password |
+| createdAt | Date | Auto | Timestamp of creation |
+| updatedAt | Date | Auto | Timestamp of update |
 
-Issue 5: JWT Token Expired
+### Note Schema
 
-If you are logged out unexpectedly, your JWT token may have expired. The default expiration is set to 7 days. Log in again to get a new token.
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| title | String | Yes | - | Note title |
+| content | String | Yes | - | HTML content |
+| pinned | Boolean | No | false | Pin status |
+| favorite | Boolean | No | false | Favorite status |
+| folder | String | No | "" | Folder name |
+| user | ObjectId | Yes | - | Owner reference |
+| createdAt | Date | Auto | - | Creation timestamp |
+| updatedAt | Date | Auto | - | Update timestamp |
 
-Contributing to the Project
---------------------------
+### Folder Schema
 
-If you want to contribute to this project:
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| name | String | Yes | Folder name |
+| user | ObjectId | Yes | Owner reference |
+| createdAt | Date | Auto | Creation timestamp |
+| updatedAt | Date | Auto | Update timestamp |
 
-1. Fork the repository on GitHub
-2. Create a new branch for your feature or bug fix
-3. Make your changes and commit them with clear messages
-4. Push your branch to your forked repository
-5. Submit a pull request to the main repository
+---
 
-Please ensure your code follows the existing style and includes appropriate comments.
+## Usage Guide
 
-License
--------
+### First Time User Setup
 
-This project is for educational purposes. Please check with the repository owner for specific licensing terms.
+1. Open the application in your browser
+2. Click the Create Account link
+3. Fill in your name, email, and password
+4. Accept the terms and conditions
+5. Click Create Account
+6. After success message, you will be redirected to login
+7. Enter your email and password
+8. Click Login to enter the application
 
-Contact
--------
+### Creating a New Note
 
-For any questions or issues related to this project, please open an issue on the GitHub repository or contact the project maintainer.
+1. Click the New Note button in the sidebar
+2. Enter a title for your note
+3. Type your content in the rich text editor
+4. Use toolbar buttons for formatting
+5. Optionally pin the note or mark as favorite
+6. Select a folder from the dropdown
+7. Click Save to save your note
 
-Thank you for using this E-Commerce Website.
+### Editing an Existing Note
+
+1. Click on any note card on the Home page
+2. The note opens in the editor
+3. Make your changes
+4. Click Save to update the note
+
+### Deleting a Note
+
+1. Open the note you want to delete
+2. Click the Delete button
+3. Confirm deletion when prompted
+
+### Searching for Notes
+
+1. Locate the search bar at the top of the Home page
+2. Type any keyword to search
+3. Results filter in real-time
+4. Clear the search box to see all notes
+
+### Creating and Managing Folders
+
+1. Navigate to the Folders page
+2. Click New Folder button
+3. Enter a folder name and confirm
+4. Click on any folder to view notes inside
+5. Hover over a folder to see edit and delete buttons
+6. Click Back to Folders to return to folder list
+
+### Using Pin and Favorite Features
+
+1. When creating or editing a note, use the toggles in the right sidebar
+2. Turn on Pin to Top to pin the note
+3. Turn on Add to Favorites to favorite the note
+4. Pinned notes appear on the Pinned page
+5. Favorite notes appear on the Favorites page
+6. These notes do NOT appear on the Home page
+
+### Changing Theme
+
+1. Look for the dark mode button in the top header
+2. Click to toggle between light and dark themes
+
+### Exporting Notes as PDF
+
+1. Open any note in the editor
+2. Click the Download PDF button
+3. Use the browser print dialog to save as PDF
+
+### Logging Out
+
+1. Click your profile section at the bottom of the sidebar
+2. Click the Logout button
+3. You will be redirected to the login page
+
+---
+
+## Troubleshooting
+
+### Backend Won't Start
+
+Issue: MongoDB connection error
+Solution: Ensure MongoDB is running with mongod command
+
+Issue: Port 5000 already in use
+Solution: Change PORT in .env file to a different number
+
+Issue: JWT_SECRET not set
+Solution: Ensure JWT_SECRET is defined in your .env file
+
+### Frontend Issues
+
+Issue: Cannot connect to backend
+Solution: Verify backend is running on http://localhost:5000
+
+Issue: Login fails with correct credentials
+Solution: Clear browser localStorage and try again
+
+Issue: Notes not saving or loading
+Solution: Check browser console for API errors
+
+### Common Error Messages
+
+"Invalid credentials" - Email or password is incorrect
+
+"Not authorized, no token" - You are not logged in
+
+"Failed to fetch note" - Backend server may be down
+
+"Server not reachable" - Backend is not running
+
+---
+
+## License
+
+This project is licensed under the ISC License.
+
+---
+
+## Acknowledgments
+
+- Tailwind CSS for the utility-first CSS framework
+- MongoDB for the flexible NoSQL database
+- Express.js for the minimalist web framework
+- Node.js for the JavaScript runtime
+- Google Fonts and Material Icons for typography and icons
+
+---
+
+## Version History
+
+Version 1.0.0 - Initial release
+- Complete authentication system
+- Full CRUD operations for notes
+- Folder organization system
+- Pin and favorite features
+- Rich text editor with formatting
+- Dark mode support
+- PDF export functionality
+- Real-time search
+- Responsive design
+
+---
+
+Thank you for using WEB NOTE'S
