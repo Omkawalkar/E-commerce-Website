@@ -1,528 +1,157 @@
-# WEB NOTE'S - Full Stack Notes Application
 
-A complete full-stack note-taking web application that allows users to create, edit, organize, and manage notes with rich text formatting, folder organization, user authentication, and real-time search capabilities.
+MarketEngine - Complete E-Commerce Website Documentation
+Project Overview
 
----
+MarketEngine is a fully functional full-stack e-commerce website that I built during my internship at Incode Vision. It allows users to browse products, add items to cart, and complete orders. Admins can manage products and track orders through a dedicated dashboard.
+Features
+User Features
 
-## Table of Contents
+User registration and login with secure authentication
+Browse products by categories like Electronics, Home and Kitchen, Fashion, Books, Beauty, Sports, Toys, Automotive, Groceries, and Health
+Search products by name, description, or brand
+Filter products by price range
+View detailed product information including specifications
+Add products to shopping cart
+Update quantity of items in cart
+Remove items from cart
+Proceed to secure checkout
+Place orders with shipping address
+Receive order confirmation with unique order number
+Admin Features
 
-1. Overview
-2. Features
-3. Technology Stack
-4. Project Structure
-5. Prerequisites
-6. Installation Guide
-7. Backend Setup
-8. Frontend Setup
-9. Running the Application
-10. API Documentation
-11. Database Schema
-12. Usage Guide
-13. Troubleshooting
-14. License
+Add new products with images
+Edit existing product details
+Set product price, stock quantity, and category
+Add technical specifications for products
+Upload and manage product images
+View all customer orders
+Update order status from Pending to Processing to Shipped to Delivered
+Delete orders if needed
+Track inventory levels
+Technology Stack
+Frontend Technologies
 
----
+HTML5 for structure
+Tailwind CSS for styling and responsive design
+JavaScript for interactivity and API calls
+Material Symbols for icons
+Backend Technologies
 
-## Overview
-
-WEB NOTE'S is a modern note-taking application built with the MERN stack. It provides users with a secure platform to create, organize, and manage their notes. The application features user authentication, rich text editing, folder organization, pinning and favoriting capabilities, and persistent data storage using MongoDB. Each user has their own isolated workspace, ensuring complete data privacy and security.
-
----
-
-## Features
-
-### User Authentication and Security
-
-- User registration with encrypted password storage using bcryptjs
-- Secure login using JSON Web Token authentication
-- Token-based authorization for all protected API routes
-- Password hashing with 10 salt rounds for enhanced security
-- 7-day token expiration for automatic logout
-- Complete user data isolation between different accounts
-
-### Note Management
-
-- Create, read, update, and delete notes
-- Rich text editing with custom toolbar
-- Auto-resize text editor based on content length
-- Real-time search by note title or content
-- Export notes as PDF files
-- Automatic save functionality
-
-### Rich Text Editor Features
-
-Text Formatting Options:
-- Bold, Italic, and Underline formatting
-- Text color selection with 8 predefined colors
-- Text highlight with 8 predefined colors
-- Custom color picker for both text and highlight
-- Font size adjustment with 7 different sizes from 10px to 32px
-
-Paragraph Formatting Options:
-- Bulleted lists for unordered information
-- Numbered lists for ordered information
-- Multilevel lists for nested content
-- Text alignment including Left, Center, Right, and Justify
-- Heading styles H1 and H2
-- Blockquote formatting for quoted content
-- Hyperlink insertion
-
-### Organization Features
-
-Folder Management System:
-- Create new custom folders
-- Edit existing folder names
-- Delete folders with automatic note reassignment
-- View all notes inside a specific folder
-- Move notes between different folders
-- Display note count for each folder
-
-Note Organization Options:
-- Pin important notes to access them quickly
-- Mark notes as favorites for easy reference
-- Smart home page shows only regular notes
-- Dedicated pages for pinned notes only
-- Dedicated pages for favorite notes only
-
-### User Experience Features
-
-- Dark mode and Light mode theme toggle
-- Responsive design that works on all devices
-- User profile section with logout functionality
-- Real-time search with instant filtering
-- Loading states for all async operations
-- Confirmation dialogs for delete operations
-- Error handling with user-friendly messages
-
----
-
-## Technology Stack
-
-### Frontend Technologies
-
-HTML5
-- Semantic markup structure for better accessibility
-- Contenteditable attribute for rich text editing
-- Responsive meta tags for mobile devices
-
-CSS3
-- Tailwind CSS utility framework for styling
-- CSS Grid and Flexbox for layouts
-- Custom CSS animations for transitions
-- Dark mode support with CSS variables
-- Media queries for responsive design
-
-JavaScript ES6+
-- Modern JavaScript features including async/await
-- Arrow functions and destructuring assignments
-- Fetch API for backend communication
-- LocalStorage for session and token management
-- DOM manipulation for dynamic content updates
-- Event handling for user interactions
-
-External Libraries
-- Tailwind CSS version 3.x for styling
-- Google Fonts Inter for typography
-- Google Material Symbols for icons
-
-### Backend Technologies
-
-Runtime and Framework
-- Node.js version 18 or higher as JavaScript runtime
-- Express.js version 5.x as web application framework
-
-Database
-- MongoDB version 6 or higher as NoSQL database
-- Mongoose version 9.x as Object Data Modeling library
-
-Authentication and Security
-- JSON Web Token version 9.x for authentication
-- bcryptjs version 3.x for password hashing
-- CORS for cross-origin resource sharing
-- dotenv version 17.x for environment variable management
-
+Node.js for runtime environment
+Express.js for web framework
+MongoDB for database
+Mongoose for database modeling
+JWT for authentication
+Bcryptjs for password hashing
 Development Tools
-- Nodemon version 3.x for automatic server restart during development
 
----
+Nodemon for automatic server restarts
+CORS for cross-origin requests
+Cookie-parser for handling cookies
+Dotenv for environment variables
+Project Structure
 
+The project is organised into two main folders.
 
-## Prerequisites
+Backend folder contains all server-side code. Inside this folder you will find the config folder which has database connection file. The middleware folder contains authentication logic. The models folder has all database schemas including User, Product, Cart, and Order. The routes folder contains API endpoints for auth, products, cart, and orders. The main server.js file initialises the Express server.
 
-Before installing the application, ensure you have the following installed:
+Frontend folder contains all client-side code. Inside you will find the Create Page for user registration, Login Page for user authentication, Home page for landing page, Product Card page for displaying products, Product Management page for admin to add products, Add Cart Page for shopping cart, Order Page for checkout process, and Admin Order page for managing orders.
+API Endpoints
 
-1. Node.js version 18 or higher
-   - Download from nodejs.org
-   - Verify installation: node --version
+Authentication endpoints include POST request to register a new user, POST request to login a user, and GET request to verify user token.
 
-2. MongoDB version 6 or higher
-   - Download from mongodb.com for local installation
-   - Or create a free MongoDB Atlas cloud account
-   - Verify installation: mongod --version
+Product endpoints include GET request to fetch all products with optional category and price filters, GET request to fetch single product by id, POST request to create a new product, PUT request to update product by id, and DELETE request to remove product by id.
 
-3. Git (optional, for cloning the repository)
-   - Download from git-scm.com
+Cart endpoints include GET request to fetch user cart, POST request to add item to cart, PUT request to update item quantity, DELETE request to remove specific item, and DELETE request to clear entire cart.
 
----
+Order endpoints include POST request to create a new order from cart, GET request to fetch all orders for admin, GET request to fetch single order by id, PUT request to update order status, and DELETE request to delete order.
+How to Run the Project on Your Computer
 
-## Installation Guide
+Follow these steps carefully to run the project locally.
+Prerequisites
 
-### Step 1: Get the Source Code
+First you need to install Node.js on your computer. Download it from the official Node.js website.
 
-Option A - Clone using Git:
-git clone https://github.com/yourusername/web-notes.git
-cd web-notes
+Second you need to install MongoDB on your computer. Download MongoDB Community Edition and install it. Make sure MongoDB service is running on your computer.
 
-Option B - Download ZIP:
-- Download the ZIP file from GitHub
-- Extract it to your desired location
-- Open terminal in the extracted folder
+Third you need a code editor. Visual Studio Code is recommended.
+Step by Step Installation Guide
 
-### Step 2: Install Backend Dependencies
+Step 1 - Download or clone the project folder to your computer.
 
-cd backend
-npm install
+Step 2 - Open the project folder in your code editor.
 
-### Step 3: Configure Environment Variables
+Step 3 - Open a terminal in the project root directory.
 
-Create a .env file in the backend folder and add:
+Step 4 - Install all backend dependencies by running the command npm install
+
+This will install all required packages like express, mongoose, bcryptjs, jsonwebtoken, cors, dotenv, cookie-parser, express-validator, and nodemon.
+
+Step 5 - Create a .env file in the root directory with the following content
 
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/notes_app
-JWT_SECRET=your_super_secret_key_change_this_to_a_strong_key
+MONGODB_URI=mongodb://localhost:27017/equinox_marketplace
+JWT_SECRET=your_super_secret_key_here
+JWT_EXPIRE=7d
+NODE_ENV=development
 
-### Step 4: Start MongoDB
+Make sure to change the JWT_SECRET to your own secret key.
 
-For local MongoDB installation:
+Step 6 - Start MongoDB on your computer. Open a new terminal and run the command mongod
 
-Windows:
-net start MongoDB
-or
-mongod
+Keep this terminal running while you use the project.
 
-MacOS with Homebrew:
-brew services start mongodb-community
+Step 7 - Start the backend server. In the main terminal run the command npm run dev
 
-Linux:
-sudo systemctl start mongod
+You should see messages saying server running on port 5000 and MongoDB connected.
 
-### Step 5: Start the Backend Server
+Step 8 - Open the frontend files using Live Server. In your code editor, right click on any HTML file inside the Frontend folder and select Open with Live Server.
 
-From the backend folder:
+The website will open in your browser. Make sure the Live Server is running on port 5500.
 
-Development mode:
-npm run dev
+Step 9 - First register a new user account. Go to the Create Page and fill in your details.
 
-Production mode:
-npm start
+Step 10 - Login with your credentials. You will be redirected to the home page.
 
-You will see:
-Server is running on port 5000
-MongoDB connected: 127.0.0.1
+Step 11 - To add products as admin, go to the Product Management page. Fill in product name, category, price, description, and upload an image. Click Update or Add Product.
 
-### Step 6: Open the Frontend
+Step 12 - View products on the Product Card page. You can filter by category or price range.
 
-Method 1 - VS Code Live Server (Recommended):
-- Install Live Server extension
-- Right-click on frontend/login/login.html
-- Select Open with Live Server
+Step 13 - Add products to cart using the Add to Cart button.
 
-Method 2 - Python HTTP Server:
-cd frontend
-python -m http.server 5500
+Step 14 - View your cart by clicking the cart icon. Update quantities or remove items as needed.
 
-Method 3 - Node.js HTTP Server:
-npx serve frontend
+Step 15 - Proceed to checkout by clicking Proceed to Checkout button.
 
-The application will be available at: http://127.0.0.1:5500
+Step 16 - Fill in your shipping address and place your order.
 
----
+Step 17 - View all orders in the Admin Order page. Here you can update order status or delete orders.
+Common Issues and Solutions
 
-## Backend Setup
+If MongoDB connection fails, make sure MongoDB is installed and running. Run mongod in a separate terminal to start the database service.
 
-### Environment Variables Reference
+If you see CORS errors, make sure your backend server is running on port 5000 and your frontend Live Server is running on port 5500.
 
-| Variable | Description | Required | Example Value |
-|----------|-------------|----------|---------------|
-| PORT | Backend server port number | Yes | 5000 |
-| MONGO_URI | MongoDB connection string | Yes | mongodb://127.0.0.1:27017/notes_app |
-| JWT_SECRET | Secret key for JWT signing | Yes | your_secure_secret_key_here |
+If images are not uploading, check the server.js file and make sure the payload limit is set to 50mb. The code already includes this setting.
 
-### NPM Scripts
+If you cannot login, check the browser console for errors. Make sure you have registered a user first.
 
-| Command | Description |
-|---------|-------------|
-| npm run dev | Start server with auto-restart (development) |
-| npm start | Start server without auto-restart (production) |
-| npm install | Install all dependencies |
+If products are not showing, check if you have added any products from the Product Management page. The database starts empty.
+Live Demo Notes
 
-### Database Collections
+This project runs locally on your computer. To show it to someone else, you would need to deploy it to a hosting service.
 
-- users - Stores user account information
-- notes - Stores all notes with user references
-- folders - Stores all folders with user references
+For deployment, you would need to change the API URLs from localhost to your actual domain name. You would also need to use MongoDB Atlas instead of local MongoDB.
+Project Status
 
----
+This project is fully functional and complete. All core e-commerce features are working including user authentication, product management, shopping cart, order processing, and admin dashboard.
 
-## Frontend Setup
+The website is responsive and works on desktop, tablet, and mobile devices.
+Credits
 
-### Page Navigation Structure
+This project was built during my internship at Incode Vision. I handled both frontend and backend development from start to finish.
+Contact
 
-1. Login Page (login/login.html) - Entry point for authentication
-2. Create Account Page (create/create.html) - New user registration
-3. Home Page (Home page/Home.html) - Main dashboard showing regular notes
-4. Create Note Page (add new/new.html) - Rich text editor for notes
-5. Edit Note Page (add new/new.html with ID) - Loads existing note for editing
-6. Favorites Page (Favorite page/favorite.html) - Shows favorite notes
-7. Pinned Page (pinned page/pinned.html) - Shows pinned notes
-8. Folders Page (folder/folder.html) - Manage folders and view notes by folder
+If you have any questions about this project or want to collaborate, feel free to reach out to me on LinkedIn.
 
----
-
-## Running the Application
-
-Step 1: Open Terminal Window 1 for Backend
-- cd backend
-- npm run dev
-- Keep this terminal window open
-
-Step 2: Open Terminal Window 2 for Frontend (Optional)
-- cd frontend
-- python -m http.server 5500
-
-Step 3: Open Browser
-- Go to http://localhost:5500/login/login.html
-
-Step 4: Create an Account
-- Click Create Account link
-- Fill in your details
-- Click Create Account button
-
-Step 5: Login
-- Enter your email and password
-- Click Login button
-
-Step 6: Start Using the Application
-- Click New Note to create your first note
-- Use the rich text editor to write content
-- Save your note
-
----
-
-## API Documentation
-
-Base URL: http://localhost:5000/api
-
-### Authentication Endpoints
-
-POST /api/auth/register
-Request Body: { "name": "John Doe", "email": "john@example.com", "password": "password123" }
-Success Response: 201 with message and user object
-
-POST /api/auth/login
-Request Body: { "email": "john@example.com", "password": "password123" }
-Success Response: 200 with message, token, and user object
-
-### Note Endpoints (Authentication Required)
-
-Header: Authorization: Bearer your_jwt_token_here
-
-GET /api/notes - Get all user notes
-GET /api/notes/:id - Get single note
-POST /api/notes - Create new note
-PUT /api/notes/:id - Update note
-DELETE /api/notes/:id - Delete note
-
-### Folder Endpoints (Authentication Required)
-
-GET /api/folders - Get all user folders
-POST /api/folders - Create new folder
-PUT /api/folders/:id - Update folder
-DELETE /api/folders/:id - Delete folder
-
----
-
-## Database Schema
-
-### User Schema
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| name | String | Yes | User's full name |
-| email | String | Yes | Unique email address |
-| password | String | Yes | Hashed password |
-| createdAt | Date | Auto | Timestamp of creation |
-| updatedAt | Date | Auto | Timestamp of update |
-
-### Note Schema
-
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| title | String | Yes | - | Note title |
-| content | String | Yes | - | HTML content |
-| pinned | Boolean | No | false | Pin status |
-| favorite | Boolean | No | false | Favorite status |
-| folder | String | No | "" | Folder name |
-| user | ObjectId | Yes | - | Owner reference |
-| createdAt | Date | Auto | - | Creation timestamp |
-| updatedAt | Date | Auto | - | Update timestamp |
-
-### Folder Schema
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| name | String | Yes | Folder name |
-| user | ObjectId | Yes | Owner reference |
-| createdAt | Date | Auto | Creation timestamp |
-| updatedAt | Date | Auto | Update timestamp |
-
----
-
-## Usage Guide
-
-### First Time User Setup
-
-1. Open the application in your browser
-2. Click the Create Account link
-3. Fill in your name, email, and password
-4. Accept the terms and conditions
-5. Click Create Account
-6. After success message, you will be redirected to login
-7. Enter your email and password
-8. Click Login to enter the application
-
-### Creating a New Note
-
-1. Click the New Note button in the sidebar
-2. Enter a title for your note
-3. Type your content in the rich text editor
-4. Use toolbar buttons for formatting
-5. Optionally pin the note or mark as favorite
-6. Select a folder from the dropdown
-7. Click Save to save your note
-
-### Editing an Existing Note
-
-1. Click on any note card on the Home page
-2. The note opens in the editor
-3. Make your changes
-4. Click Save to update the note
-
-### Deleting a Note
-
-1. Open the note you want to delete
-2. Click the Delete button
-3. Confirm deletion when prompted
-
-### Searching for Notes
-
-1. Locate the search bar at the top of the Home page
-2. Type any keyword to search
-3. Results filter in real-time
-4. Clear the search box to see all notes
-
-### Creating and Managing Folders
-
-1. Navigate to the Folders page
-2. Click New Folder button
-3. Enter a folder name and confirm
-4. Click on any folder to view notes inside
-5. Hover over a folder to see edit and delete buttons
-6. Click Back to Folders to return to folder list
-
-### Using Pin and Favorite Features
-
-1. When creating or editing a note, use the toggles in the right sidebar
-2. Turn on Pin to Top to pin the note
-3. Turn on Add to Favorites to favorite the note
-4. Pinned notes appear on the Pinned page
-5. Favorite notes appear on the Favorites page
-6. These notes do NOT appear on the Home page
-
-### Changing Theme
-
-1. Look for the dark mode button in the top header
-2. Click to toggle between light and dark themes
-
-### Exporting Notes as PDF
-
-1. Open any note in the editor
-2. Click the Download PDF button
-3. Use the browser print dialog to save as PDF
-
-### Logging Out
-
-1. Click your profile section at the bottom of the sidebar
-2. Click the Logout button
-3. You will be redirected to the login page
-
----
-
-## Troubleshooting
-
-### Backend Won't Start
-
-Issue: MongoDB connection error
-Solution: Ensure MongoDB is running with mongod command
-
-Issue: Port 5000 already in use
-Solution: Change PORT in .env file to a different number
-
-Issue: JWT_SECRET not set
-Solution: Ensure JWT_SECRET is defined in your .env file
-
-### Frontend Issues
-
-Issue: Cannot connect to backend
-Solution: Verify backend is running on http://localhost:5000
-
-Issue: Login fails with correct credentials
-Solution: Clear browser localStorage and try again
-
-Issue: Notes not saving or loading
-Solution: Check browser console for API errors
-
-### Common Error Messages
-
-"Invalid credentials" - Email or password is incorrect
-
-"Not authorized, no token" - You are not logged in
-
-"Failed to fetch note" - Backend server may be down
-
-"Server not reachable" - Backend is not running
-
----
-
-## License
-
-This project is licensed under the ISC License.
-
----
-
-## Acknowledgments
-
-- Tailwind CSS for the utility-first CSS framework
-- MongoDB for the flexible NoSQL database
-- Express.js for the minimalist web framework
-- Node.js for the JavaScript runtime
-- Google Fonts and Material Icons for typography and icons
-
----
-
-## Version History
-
-Version 1.0.0 - Initial release
-- Complete authentication system
-- Full CRUD operations for notes
-- Folder organization system
-- Pin and favorite features
-- Rich text editor with formatting
-- Dark mode support
-- PDF export functionality
-- Real-time search
-- Responsive design
-
----
-
-Thank you for using WEB NOTE'S
+Thank you for taking the time to explore my project.
